@@ -1,4 +1,6 @@
+import 'package:cc_dr_side/authentication/login.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AddCertificateImage extends StatelessWidget {
   const AddCertificateImage({super.key});
@@ -60,7 +62,7 @@ class AddCertificateImage extends StatelessWidget {
             right: 16,
             child: ElevatedButton(
               onPressed: () {
-                // Handle button press
+              Get.to(()=> LoginPage());
               },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),

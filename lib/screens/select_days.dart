@@ -1,4 +1,3 @@
-import 'package:cc_dr_side/authentication/login.dart';
 import 'package:cc_dr_side/screens/add_certificate_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
