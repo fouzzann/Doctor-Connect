@@ -1,5 +1,7 @@
+import 'package:cc_dr_side/authentication/login.dart';
+import 'package:cc_dr_side/screens/add_certificate_image.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:get/get.dart';
 
 class DayPage extends StatefulWidget {
   const DayPage({super.key});
@@ -27,7 +29,7 @@ class _DayPageState extends State<DayPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text(
-          'Select your available date',
+          "Select your available Day's",
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -46,7 +48,10 @@ class _DayPageState extends State<DayPage> {
               Center(
                 child: SizedBox(
                   height: 300,
-                  child:Image(image: AssetImage('assets/pngtree-presentation-marketing-planning-cartoon-vector-illustration-picture-image_8444460.png'))
+                  child: Image(
+                    image: AssetImage(
+                        'assets/pngtree-presentation-marketing-planning-cartoon-vector-illustration-picture-image_8444460.png'),
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
@@ -89,7 +94,7 @@ class _DayPageState extends State<DayPage> {
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                     color: Colors.blue,
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(10),
                                       topRight: Radius.circular(10),
                                     ),
@@ -115,16 +120,44 @@ class _DayPageState extends State<DayPage> {
                   },
                 ),
               ),
-              if (selectedDays.isNotEmpty) ...[
-                const SizedBox(height: 0),
-                Text(
-                  'Selected days: ${selectedDays.map((index) => weekDays[index]).join(", ")}',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.black87,
+              const SizedBox(height: 16),
+              Text(
+                selectedDays.isNotEmpty
+                    ? 'Selected days: ${selectedDays.map((index) => weekDays[index]).join(", ")}'
+                    : 'No days selected',
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 16),
+            
+              Center(
+                child:Positioned(
+            bottom: 16,
+            left: 16,
+            right: 16,
+            child: Container(width: 400,
+              child: ElevatedButton(
+                onPressed: () {
+                  Get.to(() =>AddCertificateImage());
+                 
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                  backgroundColor: Color(0xFF4A78FF),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
                 ),
-              ],
+                child: Text(
+                  "Next",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+          ),
+              ),
             ],
           ),
         ),

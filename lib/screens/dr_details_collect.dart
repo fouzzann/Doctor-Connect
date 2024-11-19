@@ -46,7 +46,7 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          "Profile Page",
+          "Add Profile",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -56,97 +56,105 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
         children: [
           SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
-            child: Form(
-              key: _formKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              child: Column(
-                children: [
-                  Center(
-                    child: Stack(
-                      children: [
-                        CircleAvatar(
-                          radius: 100,
-                          backgroundColor: Colors.grey.shade300,
-                          backgroundImage:
-                              _image != null ? FileImage(_image!) : null,
-                          child: _image == null
-                              ? Icon(
-                                  Icons.person,
-                                  size: 100,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 80), // Add bottom padding
+              child: Form(
+                key: _formKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: Column(
+                  children: [
+                    Center(
+                      child: Stack(
+                        children: [
+                          CircleAvatar(
+                            radius: 80,
+                            backgroundColor: Colors.grey.shade300,
+                            backgroundImage:
+                                _image != null ? FileImage(_image!) : null,
+                            child: _image == null
+                                ? Icon(
+                                    Icons.person,
+                                    size: 80,
+                                    color: Colors.white,
+                                  )
+                                : null,
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: GestureDetector(
+                              onTap: _pickImage,
+                              child: CircleAvatar(
+                                radius: 20,
+                                backgroundColor: Color(0xFF4A78FF),
+                                child: Icon(
+                                  Icons.add_a_photo,
                                   color: Colors.white,
-                                )
-                              : null,
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: GestureDetector(
-                            onTap: _pickImage,
-                            child: CircleAvatar(
-                              radius: 20,
-                              backgroundColor: Color(0xFF4A78FF),
-                              child: Icon(
-                                Icons.add_a_photo,
-                                color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 30),
-                  _buildTextField(
-                      fullNameController, 'Full Name', 'Enter your full name'),
-                  SizedBox(height: 20),
-                  _buildTextField(
-                      emailController, 'Email', 'example abc@gmail.com'),
-                  SizedBox(height: 20),
-                  _buildTextField(hospitalNameController, 'Hospital Name',
-                      'Enter your hospital name'),
-                  SizedBox(height: 20),
-                  _buildTextField(dobController, 'Date of Birth',
-                      'Enter your date of birth'),
-                  SizedBox(height: 20),
-                  _buildDropdownField(genderController, 'Gender',
-                      'Select your gender', ['Male', 'Female']),
-                  SizedBox(height: 20),
-                  _buildDropdownField(
-                      categoryController, 'Category', 'Select your category', [
-                    'General',
-                    'Cardiologist',
-                    'Dermatologist',
-                    'Pediatrician',
-                    'Orthopedic',
-                    'Gynecologist',
-                    'Neurologist',
-                    'Psychiatrist',
-                    'Dentist',
-                    'Ophthalmologist',
-                    'Endocrinologist',
-                    'Gastroenterologist',
-                    'Oncologist',
-                    'Urologist',
-                    'Physiotherapist'
-                  ]),
-                  SizedBox(height: 20),
-                  _buildTextField(yearsOfExperienceController,
-                      'Years of Experience', 'Enter your years of experience',
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        LengthLimitingTextInputFormatter(2),
-                      ]),
-                  SizedBox(height: 20),
-                  _buildTextField(consultationFeeController, 'Consultation Fee',
-                      'Enter your consultation fee',
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        LengthLimitingTextInputFormatter(10),
-                      ]),
-                  SizedBox(height: 30),
-                ],
+                    SizedBox(height: 30),
+                    _buildTextField(
+                        fullNameController, 'Full Name', 'Enter your full name'),
+                    SizedBox(height: 20),
+                    _buildTextField(
+                        emailController, 'Email', 'example abc@gmail.com'),
+                    SizedBox(height: 20),
+                    _buildTextField(hospitalNameController, 'Hospital Name',
+                        'Enter your hospital name'),
+                    SizedBox(height: 20),
+                    _buildTextField(dobController, 'Date of Birth',
+                        'Enter your date of birth'),
+                    SizedBox(height: 20),
+                    _buildDropdownField(genderController, 'Gender',
+                        'Select your gender', ['Male', 'Female']),
+                    SizedBox(height: 20),
+                    _buildDropdownField(
+                        categoryController,
+                        'Category',
+                        'Select your category', [
+                      'General',
+                      'Cardiologist',
+                      'Dermatologist',
+                      'Pediatrician',
+                      'Orthopedic',
+                      'Gynecologist',
+                      'Neurologist',
+                      'Psychiatrist',
+                      'Dentist',
+                      'Ophthalmologist',
+                      'Endocrinologist',
+                      'Gastroenterologist',
+                      'Oncologist',
+                      'Urologist',
+                      'Physiotherapist'
+                    ]),
+                    SizedBox(height: 20),
+                    _buildTextField(
+                        yearsOfExperienceController,
+                        'Years of Experience',
+                        'Enter your years of experience',
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(2),
+                        ]),
+                    SizedBox(height: 20),
+                    _buildTextField(
+                        consultationFeeController,
+                        'Consultation Fee',
+                        'Enter your consultation fee',
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(10),
+                        ]),
+                  ],
+                ),
               ),
             ),
           ),
@@ -156,8 +164,9 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
             right: 16,
             child: ElevatedButton(
               onPressed: () {
-                Get.to(() => DayPage());
-                if (_formKey.currentState?.validate() ?? false) {}
+                if (_formKey.currentState?.validate() ?? false) {
+                  Get.to(() => DayPage());
+                }
               },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
@@ -187,11 +196,6 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
         labelText: labelText,
         hintText: hintText,
         hintStyle: TextStyle(color: Colors.grey),
-        border: InputBorder.none,
-        enabledBorder: InputBorder.none,
-        focusedBorder: InputBorder.none,
-        errorBorder: InputBorder.none,
-        focusedErrorBorder: InputBorder.none,
         filled: true,
         fillColor: Colors.white,
       ),
@@ -214,11 +218,6 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
         labelText: labelText,
         hintText: hintText,
         hintStyle: TextStyle(color: Colors.grey),
-        border: InputBorder.none,
-        enabledBorder: InputBorder.none,
-        focusedBorder: InputBorder.none,
-        errorBorder: InputBorder.none,
-        focusedErrorBorder: InputBorder.none,
         filled: true,
         fillColor: Colors.white,
       ),

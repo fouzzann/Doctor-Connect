@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:cc_dr_side/screens/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
       );
 
       if (userCredential.user != null) {
-        // Get.to(() => HomePage());
+        Get.to(() => HomePage());
       }
       return userCredential;
     } catch (e) {
@@ -57,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
       UserCredential userCredential = await _auth.signInWithCredential(cred);
 
       if (userCredential.user != null) {
-        // Get.to(() => HomePage());
+        Get.to(() => HomePage());
       }
       return userCredential;
     } catch (e) {
@@ -70,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user != null) {
-        // Get.to(() => HomePage());
+        Get.to(() => HomePage);
       }
     });
 
