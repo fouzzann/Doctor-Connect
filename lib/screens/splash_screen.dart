@@ -1,4 +1,3 @@
-import 'package:cc_dr_side/authentication/login.dart';
 import 'package:cc_dr_side/screens/dr_details_collect.dart';
 import 'package:flutter/material.dart';
 
