@@ -1,7 +1,9 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:cc_dr_side/functions/upload_image_s3bucket.dart';
+import 'package:cc_dr_side/screens/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class DrDetailsCollect extends StatefulWidget {
@@ -101,8 +103,9 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
 
             // Save Button
             ElevatedButton(
-              onPressed: ()async {
-            await    uploadImage(_image!);
+              onPressed: () async {
+                final url = await uploadImage(_image!);
+                Get.to(() => HomePage(url: url!,)); 
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.teal,

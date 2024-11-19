@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
       );
 
       if (userCredential.user != null) {
-        Get.to(() => HomePage());
+        // Get.to(() => HomePage());
       }
       return userCredential;
     } catch (e) {
@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
       UserCredential userCredential = await _auth.signInWithCredential(cred);
 
       if (userCredential.user != null) {
-        Get.to(() => HomePage());
+        // Get.to(() => HomePage());
       }
       return userCredential;
     } catch (e) {
@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user != null) {
-        Get.to(() => HomePage());
+        // Get.to(() => HomePage());
       }
     });
 
