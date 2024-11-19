@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:cc_dr_side/screens/select_days.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
 
@@ -154,6 +156,7 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
             right: 16,
             child: ElevatedButton(
               onPressed: () {
+                Get.to(() => DayPage());
                 if (_formKey.currentState?.validate() ?? false) {}
               },
               style: ElevatedButton.styleFrom(
@@ -164,7 +167,7 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
                 ),
               ),
               child: Text(
-                "Submit",
+                "Next",
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -184,9 +187,13 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
         labelText: labelText,
         hintText: hintText,
         hintStyle: TextStyle(color: Colors.grey),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
-        ),
+        border: InputBorder.none,
+        enabledBorder: InputBorder.none,
+        focusedBorder: InputBorder.none,
+        errorBorder: InputBorder.none,
+        focusedErrorBorder: InputBorder.none,
+        filled: true,
+        fillColor: Colors.white,
       ),
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
@@ -207,9 +214,13 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
         labelText: labelText,
         hintText: hintText,
         hintStyle: TextStyle(color: Colors.grey),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
-        ),
+        border: InputBorder.none,
+        enabledBorder: InputBorder.none,
+        focusedBorder: InputBorder.none,
+        errorBorder: InputBorder.none,
+        focusedErrorBorder: InputBorder.none,
+        filled: true,
+        fillColor: Colors.white,
       ),
       items: items
           .map((item) => DropdownMenuItem(
