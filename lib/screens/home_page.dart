@@ -16,9 +16,9 @@ class _HomePageState extends State<HomePage> {
 
   // List of pages for Bottom Navigation Bar
   final List<Widget> _pages = [
-     AppointmentPage(),
-     MessagePage(),
-     ProfilePage(),
+    AppointmentPage(),
+    MessagePage(),
+    ProfilePage(),
   ];
 
   @override
@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
-        selectedItemColor:  Color(0xFF4A78FF),
+        selectedItemColor: const Color(0xFF4A78FF),
         currentIndex: _selectedIndex,
         onTap: (index) {
           setState(() {
@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
               const CircleAvatar(
                 radius: 25,
                 backgroundColor: Colors.blue,
-                child: Icon(Icons.person, color: Colors.white, size: 30),
+                backgroundImage: AssetImage('assets/app logo.jpg 2.jpg'),
               ),
               const SizedBox(width: 12),
               Column(
@@ -123,7 +123,6 @@ class _HomePageState extends State<HomePage> {
                 style: const TextStyle(
                     fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              // Add your appointment list items here based on _tabIndex
             ],
           ),
         ),
@@ -131,7 +130,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Function to build the tabs
   Widget _buildTab(String text, int index) {
     bool isSelected = _tabIndex == index;
     return GestureDetector(
@@ -141,7 +139,7 @@ class _HomePageState extends State<HomePage> {
           Text(
             text,
             style: TextStyle(
-              color: isSelected ? Colors.blue : Colors.grey,
+              color: isSelected ? Color(0xFF4A78FF) : Colors.grey,
               fontSize: 16,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),
@@ -150,7 +148,7 @@ class _HomePageState extends State<HomePage> {
           Container(
             height: 3,
             width: 100,
-            color: isSelected ? Colors.blue : Colors.transparent,
+            color: isSelected ?Color(0xFF4A78FF): Colors.transparent,
           ),
         ],
       ),
