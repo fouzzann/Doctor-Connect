@@ -10,6 +10,7 @@ class AddCertificateImage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
       appBar: AppBar(
+        leading: IconButton(onPressed: (){Get.back();}, icon: Icon(Icons.arrow_back_ios)),
         backgroundColor: Color(0xFFF5F5F5),
         title: Text(
           'Add Certificate',
@@ -38,15 +39,15 @@ class AddCertificateImage extends StatelessWidget {
                         Icon(
                           Icons.add_a_photo_rounded,
                           size: 100,
-                          color: Colors.grey,
+                          color:  Color(0xFF4A78FF),
                         ),
-                        SizedBox(height: 16), // Added spacing
+                        SizedBox(height: 16), 
                         Text(
                           'Tap to add image',
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ],

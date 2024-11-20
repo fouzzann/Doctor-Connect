@@ -25,10 +25,10 @@ class _DayPageState extends State<DayPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(leading: IconButton(onPressed: (){Get.back();}, icon: Icon(Icons.arrow_back_ios)),
         backgroundColor: Colors.white,
         title: const Text(
-          "Select your available Day's",
+          "Select your available day's",
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -43,7 +43,7 @@ class _DayPageState extends State<DayPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Lottie Animation
+              // Image
               Center(
                 child: SizedBox(
                   height: 300,
@@ -130,32 +130,24 @@ class _DayPageState extends State<DayPage> {
                 ),
               ),
               const SizedBox(height: 16),
-            
-              Center(
-                child:Positioned(
-            bottom: 16,
-            left: 16,
-            right: 16,
-            child: Container(width: 400,
-              child: ElevatedButton(
-                onPressed: () {
-                  Get.to(() =>AddCertificateImage());
-                 
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                  backgroundColor: Color(0xFF4A78FF),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.to(() => AddCertificateImage());
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                    backgroundColor: Color(0xFF4A78FF),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                  ),
+                  child: Text(
+                    "Next",
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
-                child: Text(
-                  "Next",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
-          ),
               ),
             ],
           ),
