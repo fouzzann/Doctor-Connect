@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:cc_dr_side/model/dr_model.dart';
-import 'package:cc_dr_side/screens/select_days.dart';
+import 'package:cc_dr_side/screens/available_days.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -175,6 +175,7 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
                     'consultationFee': double.parse(consultationFeeController.text) ,
                     'yearsOfExperience':int.parse( yearsOfExperienceController.text),
                     'certificateImage': '',
+                    "availableDays":[]
                   });
                   
                   log("doctordat${doctor!.fullName}");

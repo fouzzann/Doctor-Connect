@@ -1,5 +1,4 @@
 import 'package:cc_dr_side/firebase_options.dart';
-import 'package:cc_dr_side/screens/home_page.dart';
 import 'package:cc_dr_side/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

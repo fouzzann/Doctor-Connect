@@ -1,9 +1,11 @@
 import 'package:cc_dr_side/authentication/login.dart';
+import 'package:cc_dr_side/model/dr_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddCertificateImage extends StatelessWidget {
-  const AddCertificateImage({super.key});
+  const AddCertificateImage({super.key ,required this.doctor});
+  final Doctor? doctor;
 
   @override
   Widget build(BuildContext context) {

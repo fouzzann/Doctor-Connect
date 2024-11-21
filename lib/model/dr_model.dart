@@ -68,7 +68,7 @@ class Doctor {
       consultationFee: map['consultationFee']?.toDouble() ?? 0.0, 
       yearsOfExperience: map['yearsOfExperience'] ?? 0,
       certificateImage: map['certificateImage'] ?? '',
-      availableDays: List<String>.from(map["availableDays"??""])
+      availableDays: List<String>.from(map['availableDays'])
     );
   }
 }

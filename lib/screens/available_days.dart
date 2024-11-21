@@ -135,7 +135,7 @@ Doctor? doctor;
                     : 'No days selected',
                 style: const TextStyle(
                   fontSize: 16,
-                  color: Colors.black87,
+                  color: Colors.black,
                 ),
               ),
               const SizedBox(height: 16),
@@ -143,7 +143,30 @@ Doctor? doctor;
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.to(() => AddCertificateImage());
+                    List<String>selected=[];
+                    for(var n in selectedDays){
+                      selected.add(weekDays[n]);
+                    }
+                   
+                  doctor=  Doctor.fromMap({ 'image': "image",
+                    'fullName': widget.doctor.fullName,
+                    'age':widget.doctor.age,
+                    'email': '',
+                    'gender': widget.doctor.gender,
+                    'uid': '',
+                    'category':widget.doctor.category,
+                    'hospitalName': widget.doctor.hospitalName,
+                    'location': '',
+                    'isAccepted': false,
+                    'docId': '',
+                    'consultationFee': widget.doctor.consultationFee ,
+                    'yearsOfExperience':widget.doctor.yearsOfExperience,
+                    'certificateImage': '',
+                    "availableDays":selected}
+                    ); 
+                  
+                    log("hey${doctor!.availableDays}");
+                     Get.to(() => AddCertificateImage(doctor: doctor,));
                   },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
