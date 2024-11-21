@@ -3,11 +3,20 @@ import 'package:cc_dr_side/model/dr_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AddCertificateImage extends StatelessWidget {
-  const AddCertificateImage({super.key ,required this.doctor});
+class AddCertificateImage extends StatefulWidget {
+   AddCertificateImage({super.key ,required this.doctor});
   final Doctor? doctor;
 
+  
+ 
+
   @override
+  State<AddCertificateImage> createState() => _AddCertificateImageState();
+  
+}
+
+class _AddCertificateImageState extends State<AddCertificateImage> {
+  Doctor ?doctor;
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
@@ -65,7 +74,8 @@ class AddCertificateImage extends StatelessWidget {
             right: 16,
             child: ElevatedButton(
               onPressed: () {
-              Get.to(()=> LoginPage());
+               doctor= widget.doctor;
+              Get.to(()=> LoginPage(doctor: doctor,));
               },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cc_dr_side/model/dr_model.dart';
 import 'package:cc_dr_side/screens/add_certificate_image.dart';
 import 'package:flutter/material.dart';
@@ -165,7 +163,7 @@ Doctor? doctor;
                     "availableDays":selected}
                     ); 
                   
-                    log("hey${doctor!.availableDays}");
+                    // log("hey${doctor!.availableDays}");
                      Get.to(() => AddCertificateImage(doctor: doctor,));
                   },
                   style: ElevatedButton.styleFrom(

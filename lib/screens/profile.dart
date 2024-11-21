@@ -1,10 +1,13 @@
-// profile_page.dart
+import 'package:cc_dr_side/authentication/login.dart';
+import 'package:cc_dr_side/services/authentication.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+   ProfilePage({super.key});
 
-  @override
+  Authentication authentication=Authentication();
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
@@ -98,6 +101,8 @@ class ProfilePage extends StatelessWidget {
                   leading: const Icon(Icons.logout, color: Colors.red),
                   title: const Text("Logout",style: TextStyle(color: Colors.red),),
                   onTap: () {
+                    authentication.googleSignOut();
+                    Get.to(()=>LoginPage());
                     // Handle tap for "Logout"
                   },
                 ),

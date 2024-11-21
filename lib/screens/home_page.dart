@@ -1,6 +1,6 @@
 import 'package:cc_dr_side/screens/appointment_page.dart';
 import 'package:cc_dr_side/screens/messages_page.dart';
-import 'package:cc_dr_side/screens/profile_page.dart';
+import 'package:cc_dr_side/screens/add_profile.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {

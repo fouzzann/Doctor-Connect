@@ -102,9 +102,6 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
                     _buildTextField(fullNameController, 'Full Name',
                         'Enter your full name'),
                     SizedBox(height: 20),
-                    // _buildTextField(
-                    //     emailController, 'Email', 'example abc@gmail.com'),
-                    // SizedBox(height: 20),
                     _buildTextField(hospitalNameController, 'Hospital Name',
                         'Enter your hospital name'),
                     SizedBox(height: 20),
@@ -178,7 +175,7 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
                     "availableDays":[]
                   });
                   
-                  log("doctordat${doctor!.fullName}");
+                  // log("doctordat${doctor!.fullName}");
                   Get.to(() => DayPage(doctor: doctor!,));
                 }
               },
