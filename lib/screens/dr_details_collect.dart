@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:cc_dr_side/model/dr_model.dart';
 import 'package:cc_dr_side/screens/select_days.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,13 +13,13 @@ class DrDetailsCollect extends StatefulWidget {
 }
 
 class _DrDetailsCollectState extends State<DrDetailsCollect> {
+  Doctor? doctor;
   File? _image;
   final ImagePicker _picker = ImagePicker();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController fullNameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
   final TextEditingController hospitalNameController = TextEditingController();
-  final TextEditingController dobController = TextEditingController();
+  final TextEditingController AgeController = TextEditingController();
   final TextEditingController genderController = TextEditingController();
   final TextEditingController categoryController = TextEditingController();
   final TextEditingController yearsOfExperienceController =
@@ -98,8 +99,8 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
                       ),
                     ),
                     SizedBox(height: 30),
-                    _buildTextField(
-                        fullNameController, 'Full Name', 'Enter your full name'),
+                    _buildTextField(fullNameController, 'Full Name',
+                        'Enter your full name'),
                     SizedBox(height: 20),
                     // _buildTextField(
                     //     emailController, 'Email', 'example abc@gmail.com'),
@@ -107,15 +108,12 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
                     _buildTextField(hospitalNameController, 'Hospital Name',
                         'Enter your hospital name'),
                     SizedBox(height: 20),
-                    _buildTextField(dobController, 'Date of Birth',
-                        'Enter your date of birth'),
+                    _buildTextField(AgeController, 'Age', 'Enter your Age'),
                     SizedBox(height: 20),
                     _buildDropdownField(genderController, 'Gender',
                         'Select your gender', ['Male', 'Female']),
                     SizedBox(height: 20),
-                    _buildDropdownField(
-                        categoryController,
-                        'Category',
+                    _buildDropdownField(categoryController, 'Category',
                         'Select your category', [
                       'General',
                       'Cardiologist',
@@ -134,20 +132,16 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
                       'Physiotherapist'
                     ]),
                     SizedBox(height: 20),
-                    _buildTextField(
-                        yearsOfExperienceController,
-                        'Years of Experience',
-                        'Enter your years of experience',
+                    _buildTextField(yearsOfExperienceController,
+                        'Years of Experience', 'Enter your years of experience',
                         keyboardType: TextInputType.number,
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
                           LengthLimitingTextInputFormatter(2),
                         ]),
                     SizedBox(height: 20),
-                    _buildTextField(
-                        consultationFeeController,
-                        'Consultation Fee',
-                        'Enter your consultation fee',
+                    _buildTextField(consultationFeeController,
+                        'Consultation Fee', 'Enter your consultation fee',
                         keyboardType: TextInputType.number,
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
@@ -165,7 +159,26 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
             child: ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState?.validate() ?? false) {
-                  Get.to(() => DayPage());
+                 
+                  doctor=Doctor.fromMap({
+                    'image': "image",
+                    'fullName': fullNameController.text,
+                    'age': int.parse(AgeController.text),
+                    'email': '',
+                    'gender': genderController.text,
+                    'uid': '',
+                    'category': categoryController.text,
+                    'hospitalName': hospitalNameController.text,
+                    'location': '',
+                    'isAccepted': false,
+                    'docId': '',
+                    'consultationFee': double.parse(consultationFeeController.text) ,
+                    'yearsOfExperience':int.parse( yearsOfExperienceController.text),
+                    'certificateImage': '',
+                  });
+                  
+                  log("doctordat${doctor!.fullName}");
+                  Get.to(() => DayPage(doctor: doctor!,));
                 }
               },
               style: ElevatedButton.styleFrom(

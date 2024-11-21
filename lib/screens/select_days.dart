@@ -1,17 +1,20 @@
+import 'dart:developer';
+
+import 'package:cc_dr_side/model/dr_model.dart';
 import 'package:cc_dr_side/screens/add_certificate_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DayPage extends StatefulWidget {
-  const DayPage({super.key});
-
+  const DayPage({super.key,required this.doctor});
+final Doctor doctor;
   @override
   State<DayPage> createState() => _DayPageState();
 }
 
 class _DayPageState extends State<DayPage> {
   final Set<int> selectedDays = {};
-
+Doctor? doctor;
   final List<String> weekDays = [
     'Mon',
     'Tue',
@@ -21,8 +24,14 @@ class _DayPageState extends State<DayPage> {
     'Sat',
     'Sun',
   ];
-
+@override
+  void initState() {
+   
+    // TODO: implement initState
+    super.initState();
+  }
   @override
+  
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(leading: IconButton(onPressed: (){Get.back();}, icon: Icon(Icons.arrow_back_ios)),
@@ -122,7 +131,7 @@ class _DayPageState extends State<DayPage> {
               const SizedBox(height: 16),
               Text(
                 selectedDays.isNotEmpty
-                    ? 'Selected days: ${selectedDays.map((index) => weekDays[index]).join(", ")}'
+                    ? 'Selected days: ${selectedDays.map((index) => weekDays[index]).join(":")}'
                     : 'No days selected',
                 style: const TextStyle(
                   fontSize: 16,

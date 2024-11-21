@@ -2,7 +2,6 @@ class Doctor {
   final String image;
   final String fullName;
   final int age;
-  final String dateOfBirth;
   final String email;
   final String gender;
   final String uid;
@@ -14,12 +13,12 @@ class Doctor {
   final double consultationFee;
   final int yearsOfExperience; 
   final String certificateImage; 
+  final List<String>availableDays;
 
   Doctor({
     required this.image,
     required this.fullName,
     required this.age,
-    required this.dateOfBirth,
     required this.email,
     required this.gender,
     required this.uid,
@@ -30,7 +29,7 @@ class Doctor {
     this.docId,
     required this.consultationFee,
     required this.yearsOfExperience,
-    required this.certificateImage,
+    required this.certificateImage,required this.availableDays
   });
 
   Map<String, dynamic> toMap() {
@@ -38,7 +37,6 @@ class Doctor {
       'image': image,
       'fullName': fullName,
       'age': age,
-      'dateOfBirth': dateOfBirth,
       'email': email,
       'gender': gender,
       'uid': uid,
@@ -50,6 +48,7 @@ class Doctor {
       'consultationFee': consultationFee,
       'yearsOfExperience': yearsOfExperience,
       'certificateImage': certificateImage, 
+      "availableDays":availableDays
     };
   }
 
@@ -58,7 +57,6 @@ class Doctor {
       image: map['image'] ?? '',
       fullName: map['fullName'] ?? '',
       age: map['age'] ?? 0,
-      dateOfBirth: map['dateOfBirth'] ?? '',
       email: map['email'] ?? '',
       gender: map['gender'] ?? '',
       uid: map['uid'] ?? '',
@@ -70,6 +68,7 @@ class Doctor {
       consultationFee: map['consultationFee']?.toDouble() ?? 0.0, 
       yearsOfExperience: map['yearsOfExperience'] ?? 0,
       certificateImage: map['certificateImage'] ?? '',
+      availableDays: List<String>.from(map["availableDays"??""])
     );
   }
 }
