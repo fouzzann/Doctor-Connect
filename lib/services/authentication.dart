@@ -46,6 +46,6 @@ class Authentication {
   }
   googleSignOut()async{
     await GoogleSignIn().signOut();
-   await FirebaseAuth.instance.signOut();
+    await FirebaseAuth.instance.signOut();
   }
 }

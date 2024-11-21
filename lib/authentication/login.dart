@@ -1,11 +1,9 @@
-import 'dart:developer';
 import 'package:cc_dr_side/model/dr_model.dart';
 import 'package:cc_dr_side/screens/home_page.dart';
 import 'package:cc_dr_side/services/authentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key,  this.doctor});
@@ -16,7 +14,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   Authentication authentication=Authentication();
 
   
