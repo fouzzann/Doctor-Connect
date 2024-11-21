@@ -5,15 +5,14 @@ import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class ProfilePage extends StatelessWidget {
-   ProfilePage({super.key});
+  ProfilePage({super.key});
 
-  Authentication authentication=Authentication();
+  Authentication authentication = Authentication();
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
       body: Column(
         children: [
-
           Container(
             height: 300,
             width: 3000,
@@ -40,21 +39,36 @@ class ProfilePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 15),
                 const Text(
-                  'Donex fiance', // Replace 'User Name' with the actual user's name
+                  'Donex fiance',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
-                ),Row(mainAxisAlignment: MainAxisAlignment.center,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Row(
                       children: [
-                        TextButton(onPressed: (){},child: Text( 'Edit',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-                     ) ],
-                    ),Row(
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Edit',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
                       children: [
-                      Icon(Icons.edit,color: Colors.white,size: 15,)
+                        Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                          size: 15,
+                        )
                       ],
                     )
                   ],
@@ -63,8 +77,6 @@ class ProfilePage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-
-          // List section
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -72,53 +84,49 @@ class ProfilePage extends StatelessWidget {
                 ListTile(
                   leading: const Icon(Icons.person, color: Color(0xFF4A78FF)),
                   title: const Text("Account"),
-                  onTap: () {
-                    // Handle tap for "Account"
-                  },
+                  onTap: () {},
                 ),
                 ListTile(
-                  leading: const Icon(Icons.shield,color: Color(0xFF4A78FF)),
+                  leading: const Icon(Icons.shield, color: Color(0xFF4A78FF)),
                   title: const Text("Privacy and Policy"),
-                  onTap: () {
-                    // Handle tap for "Notifications"
-                  },
+                  onTap: () {},
                 ),
                 ListTile(
-                  leading: const Icon(Icons.padding_rounded, color: Color(0xFF4A78FF)),
+                  leading: const Icon(Icons.padding_rounded,
+                      color: Color(0xFF4A78FF)),
                   title: const Text("Terms and Conditions"),
-                  onTap: () {
-                    // Handle tap for "Settings"
-                  },
+                  onTap: () {},
                 ),
                 ListTile(
                   leading: const Icon(Icons.help, color: Color(0xFF4A78FF)),
                   title: const Text("Help & Support"),
-                  onTap: () {
-                    // Handle tap for "Help & Support"
-                  },
+                  onTap: () {},
                 ),
                 ListTile(
                   leading: const Icon(Icons.logout, color: Colors.red),
-                  title: const Text("Logout",style: TextStyle(color: Colors.red),),
+                  title: const Text(
+                    "Logout",
+                    style: TextStyle(color: Colors.red),
+                  ),
                   onTap: () {
                     authentication.googleSignOut();
-                    Get.to(()=>LoginPage());
-                    // Handle tap for "Logout"
+                    Get.to(() => LoginPage());
                   },
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 90),
                   child: Column(
                     children: [
-                      Text('Version 1.0.0',
-                      style: TextStyle(fontSize: 17,color: Colors.grey),),
+                      Text(
+                        'Version 1.0.0',
+                        style: TextStyle(fontSize: 17, color: Colors.grey),
+                      ),
                     ],
                   ),
                 )
               ],
             ),
           ),
-          
         ],
       ),
     );

@@ -15,7 +15,8 @@ class Authentication {
     try {
       final googleUser = await GoogleSignIn().signIn();
       if (googleUser == null) {
-        return null;
+        log("Google Sign-In canceled by user");
+      return null;
       }
 
       final googleAuth = await googleUser.authentication;
@@ -32,7 +33,7 @@ class Authentication {
       }
       return userCredential;
     } catch (e) {
-      log(e.toString());
+      log("Error during Google Sign-In: $e");
       return null;
     }
   }

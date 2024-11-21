@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key,  this.doctor});
+  const LoginPage({super.key, this.doctor});
   final Doctor? doctor;
 
   @override
@@ -14,9 +14,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  Authentication authentication=Authentication();
-
-  
+  Authentication authentication = Authentication();
 
   @override
   Widget build(BuildContext context) {
@@ -58,20 +56,19 @@ class _LoginPageState extends State<LoginPage> {
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment:
-                  CrossAxisAlignment.center, // Align content to the left
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
                   'assets/Screenshot_2024-11-20_120720-removebg-preview.png',
                   height: 250,
-                  alignment: Alignment.center, // Center-align the image
+                  alignment: Alignment.center,
                 ),
-                SizedBox(height: 50), // Spacing between the image and the text
+                SizedBox(height: 50),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Text(
                     'Join our trusted network. Register your profile, manage appointments, and connect with patients.',
-                    textAlign: TextAlign.left, // Align text to the left
+                    textAlign: TextAlign.left,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 30,
@@ -82,11 +79,11 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
           ),
-          // Content
+
           Column(
             children: [
               Expanded(
-                child: Container(), // Push the bottom content down
+                child: Container(),
               ),
               Container(
                 padding: EdgeInsets.only(bottom: 50),
@@ -95,13 +92,12 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Text(
                       'continue with',
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(color: Colors.grey),
                     ),
                     SizedBox(height: 15),
                     GestureDetector(
                       onTap: () async {
-                        await authentication. loginWithGoogle(widget.doctor!);
-
+                        await authentication.loginWithGoogle(widget.doctor!);
                       },
                       child: Container(
                         width: 250,
