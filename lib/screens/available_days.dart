@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DayPage extends StatefulWidget {
-  const DayPage({super.key,required this.doctor});
-final Doctor doctor;
+  const DayPage({super.key, required this.doctor});
+  final Doctor doctor;
   @override
   State<DayPage> createState() => _DayPageState();
 }
 
 class _DayPageState extends State<DayPage> {
   final Set<int> selectedDays = {};
-Doctor? doctor;
+  Doctor? doctor;
   final List<String> weekDays = [
     'Mon',
     'Tue',
@@ -22,17 +22,20 @@ Doctor? doctor;
     'Sat',
     'Sun',
   ];
-@override
+  @override
   void initState() {
-   
-    // TODO: implement initState
     super.initState();
   }
+
   @override
-  
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: IconButton(onPressed: (){Get.back();}, icon: Icon(Icons.arrow_back_ios)),
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(Icons.arrow_back_ios)),
         backgroundColor: Colors.white,
         title: const Text(
           "Select your available day's",
@@ -115,7 +118,8 @@ Doctor? doctor;
                                   fontWeight: isSelected
                                       ? FontWeight.bold
                                       : FontWeight.normal,
-                                  color: isSelected ? Colors.blue : Colors.black,
+                                  color:
+                                      isSelected ? Colors.blue : Colors.black,
                                 ),
                               ),
                             ),
@@ -141,30 +145,31 @@ Doctor? doctor;
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    List<String>selected=[];
-                    for(var n in selectedDays){
+                    List<String> selected = [];
+                    for (var n in selectedDays) {
                       selected.add(weekDays[n]);
                     }
-                   
-                  doctor=  Doctor.fromMap({ 'image': "image",
-                    'fullName': widget.doctor.fullName,
-                    'age':widget.doctor.age,
-                    'email': '',
-                    'gender': widget.doctor.gender,
-                    'uid': '',
-                    'category':widget.doctor.category,
-                    'hospitalName': widget.doctor.hospitalName,
-                    'location': '',
-                    'isAccepted': false,
-                    'docId': '',
-                    'consultationFee': widget.doctor.consultationFee ,
-                    'yearsOfExperience':widget.doctor.yearsOfExperience,
-                    'certificateImage': '',
-                    "availableDays":selected}
-                    ); 
-                  
+
+                    final doctorModel = Doctor(
+                        image: widget.doctor.image,
+                        fullName: widget.doctor.fullName,
+                        age: widget.doctor.age,
+                        email: '',
+                        gender: widget.doctor.gender,
+                        uid: '',
+                        category: widget.doctor.category,
+                        hospitalName: widget.doctor.hospitalName,
+                        location: '',
+                        isAccepted: false,
+                        consultationFee: widget.doctor.consultationFee,
+                        yearsOfExperience: widget.doctor.yearsOfExperience,
+                        certificateImage: '',
+                        availableDays: selected);
+
                     // log("hey${doctor!.availableDays}");
-                     Get.to(() => AddCertificateImage(doctor: doctor,));
+                    Get.to(() => AddCertificateImage(
+                          doctor: doctor,
+                        ));
                   },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),

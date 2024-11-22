@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:cc_dr_side/functions/upload_image_s3bucket.dart';
 import 'package:cc_dr_side/model/dr_model.dart';
 import 'package:cc_dr_side/screens/available_days.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
       TextEditingController();
   final TextEditingController consultationFeeController =
       TextEditingController();
-
+  bool isImage = false;
   Future<void> _pickImage() async {
     try {
       final XFile? pickedImage =
@@ -154,29 +155,34 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
             left: 16,
             right: 16,
             child: ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState?.validate() ?? false) {
-                 
-                  doctor=Doctor.fromMap({
-                    'image': "image",
-                    'fullName': fullNameController.text,
-                    'age': int.parse(AgeController.text),
-                    'email': '',
-                    'gender': genderController.text,
-                    'uid': '',
-                    'category': categoryController.text,
-                    'hospitalName': hospitalNameController.text,
-                    'location': '',
-                    'isAccepted': false,
-                    'docId': '',
-                    'consultationFee': double.parse(consultationFeeController.text) ,
-                    'yearsOfExperience':int.parse( yearsOfExperienceController.text),
-                    'certificateImage': '',
-                    "availableDays":[]
-                  });
-                  
-                  // log("doctordat${doctor!.fullName}");
-                  Get.to(() => DayPage(doctor: doctor!,));
+              onPressed: () async {
+                if (_image == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text('Please add image'),
+                    backgroundColor: Colors.red,
+                  ));
+                } else {
+                  if (_formKey.currentState?.validate() ?? false) {
+                    final String? profileUrl = await uploadImage(_image!);
+                    final doctorModel = Doctor(
+                        image: profileUrl ?? '',
+                        fullName: fullNameController.text,
+                        age: AgeController.text,
+                        email: '',
+                        gender: genderController.text,
+                        uid: '',
+                        category: categoryController.text,
+                        hospitalName: hospitalNameController.text,
+                        location: '',
+                        isAccepted: false,
+                        consultationFee: consultationFeeController.text,
+                        yearsOfExperience: yearsOfExperienceController.text,
+                        certificateImage: '',
+                        availableDays: []);
+                    Get.to(() => DayPage(
+                          doctor: doctorModel,
+                        ));
+                  }
                 }
               },
               style: ElevatedButton.styleFrom(

@@ -110,7 +110,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                   onTap: () {
                     authentication.googleSignOut();
-                    Get.to(() => LoginPage());
+                    Get.offAll(() => LoginPage());
                   },
                 ),
                 Padding(

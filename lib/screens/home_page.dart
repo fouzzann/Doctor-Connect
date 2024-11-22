@@ -11,10 +11,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0; // Tracks the BottomNavigationBar index
-  int _tabIndex = 0; // Tracks the selected tab (Upcoming, Completed, Canceled)
+  int _selectedIndex = 0;
+  int _tabIndex = 0;
 
-  // List of pages for Bottom Navigation Bar
+  //Bottom Navigation Bar
   final List<Widget> _pages = [
     AppointmentPage(),
     MessagePage(),
@@ -65,12 +65,12 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(16.0),
           child: Row(
             children: [
-              const CircleAvatar(
+               CircleAvatar(
                 radius: 25,
                 backgroundColor: Colors.blue,
                 backgroundImage: AssetImage('assets/app logo.jpg 2.jpg'),
               ),
-              const SizedBox(width: 12),
+               SizedBox(width: 12),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
@@ -94,7 +94,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         const SizedBox(height: 54),
-
         // Tab Bar
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -108,7 +107,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         const SizedBox(height: 20),
-
         // Patient List
         Expanded(
           child: ListView(
