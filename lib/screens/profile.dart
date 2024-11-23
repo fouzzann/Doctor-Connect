@@ -1,5 +1,5 @@
 import 'package:cc_dr_side/screens/login_or_register_doctor.dart';
-import 'package:cc_dr_side/services/authentication.dart';
+import 'package:cc_dr_side/services/authentication/authentication_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,3 +1,4 @@
+import 'package:cc_dr_side/screens/login_dr_account.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cc_dr_side/screens/dr_details_collect.dart';
@@ -128,12 +129,14 @@ class LoginOrRegisterDoctor extends StatelessWidget {
                               end: Alignment.bottomRight,
                               colors: [Color(0xFF6C63FF), Color(0xFF584FE0)],
                             ),
-                            onTap: () {}
-
-                            // Get.to(
-                            //   () => const LoginPage(),
-                            //   transition: Transition.fadeIn,
-                            // ),
+                            onTap: () {
+                                 Get.to(
+                              () => const LoginDrAccount(),
+                              transition: Transition.fadeIn,
+                            );
+                            }
+                      
+                         
                             ),
                         const SizedBox(height: 16),
 

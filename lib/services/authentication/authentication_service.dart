@@ -46,4 +46,10 @@ class Authentication {
     await GoogleSignIn().signOut();
     await FirebaseAuth.instance.signOut();
   }
+
+  Future<bool> checkDrExist(String email) async {
+    final doc =
+        await FirebaseFirestore.instance.collection("doctors").doc(email).get();
+    return doc.exists;
+  }
 }

@@ -1,31 +1,25 @@
 import 'dart:developer';
 
-import 'package:cc_dr_side/model/dr_model.dart';
 import 'package:cc_dr_side/screens/home_page.dart';
-import 'package:cc_dr_side/services/authentication.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cc_dr_side/services/authentication/authentication_service.dart';
+import 'package:cc_dr_side/widgets/custom_error_message.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key, required this.doctor, });
-  final Doctor doctor;
+class LoginDrAccount extends StatefulWidget {
+  const LoginDrAccount({super.key, });
+
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginDrAccount> createState() => _LoginDrAccountState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginDrAccountState extends State<LoginDrAccount> {
   Authentication authentication = Authentication();
 
   @override
   Widget build(BuildContext context) {
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user != null) {
-        Get.offAll(() => HomePage());
-      }
-    });
-
+ 
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -99,33 +93,16 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(height: 15),
                     GestureDetector(
                       onTap: () async {
-                        log("null check${widget.doctor.toString()}");
-                        try {
-                          final user = await authentication.loginWithGoogle();
-                          if (user != null) {
-                            final fullDoctorData = Doctor(
-                                image: widget.doctor.image,
-                                fullName: widget.doctor.fullName,
-                                age: widget.doctor.age,
-                                email: user.email!,
-                                gender: widget.doctor.gender,
-                                uid: user.uid,
-                                category: widget.doctor.category,
-                                hospitalName: widget.doctor.hospitalName,
-                                location: '',
-                                isAccepted: false,
-                                consultationFee: widget.doctor.consultationFee,
-                                yearsOfExperience:
-                                    widget.doctor.yearsOfExperience,
-                                certificateImage: '',
-                                availableDays: widget.doctor.availableDays);
-                            authentication.dataSubmition(fullDoctorData);
-                          } else {
-                            log('user is null');
-                          }
-                        } catch (e) {
-                          log('login faild ${e}');
-                        }
+              final user = await  authentication.loginWithGoogle();
+              if(user!= null){
+            final bool isDrExist = await authentication.checkDrExist(user.email!);
+            log(isDrExist.toString());
+            if (isDrExist) {
+              Get.offAll(()=>HomePage());
+            }else{
+              customErrorMessage(context, "You don't have an account Please create new account");
+            }
+              }
                       },
                       child: Container(
                         width: 250,

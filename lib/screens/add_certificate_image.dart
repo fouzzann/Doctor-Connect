@@ -1,13 +1,16 @@
+import 'dart:developer';
 
-
-import 'package:cc_dr_side/authentication/login.dart';
+import 'package:cc_dr_side/screens/create_dr_account.dart';
+import 'package:cc_dr_side/controllers/auth_controller.dart';
+import 'package:cc_dr_side/functions/upload_image_s3bucket.dart';
 import 'package:cc_dr_side/model/dr_model.dart';
+import 'package:cc_dr_side/widgets/custom_error_message.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddCertificateImage extends StatefulWidget {
   AddCertificateImage({super.key, required this.doctor});
-  final Doctor doctor;
+   Doctor doctor;
 
   @override
   State<AddCertificateImage> createState() => _AddCertificateImageState();
@@ -16,6 +19,8 @@ class AddCertificateImage extends StatefulWidget {
 class _AddCertificateImageState extends State<AddCertificateImage> {
   // Doctor ?doctor;
   Widget build(BuildContext context) {
+    final authController = Get.put(AuthController());
+
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
       appBar: AppBar(
@@ -39,31 +44,43 @@ class _AddCertificateImageState extends State<AddCertificateImage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    height: 350,
-                    width: 350,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.add_a_photo_rounded,
-                          size: 100,
-                          color: Color(0xFF4A78FF),
-                        ),
-                        SizedBox(height: 16),
-                        Text(
-                          'Tap to add image',
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
+                  GestureDetector(
+                    onTap: () {
+                      authController.PicCertificateImage();
+                    },
+                    child: Obx(
+                      () {
+                        return Container(
+                            height: 350,
+                            width: 350,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40),
+                              color: Colors.white,
+                            ),
+                            child: authController.image.value == null
+                                ? Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.add_a_photo_rounded,
+                                        size: 100,
+                                        color: Color(0xFF4A78FF),
+                                      ),
+                                      SizedBox(height: 16),
+                                      Text(
+                                        'Tap to add image',
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : Center(
+                                    child: Image.file(
+                                        authController.image.value!)));
+                      },
                     ),
                   ),
                 ],
@@ -75,12 +92,23 @@ class _AddCertificateImageState extends State<AddCertificateImage> {
             left: 16,
             right: 16,
             child: ElevatedButton(
-              onPressed: () {
-                //   log("add failed${widget.doctor.toString()}");
-                //  doctor = widget.doctor;
-                Get.to(() => LoginPage(
-                      doctor: widget.doctor,
+              onPressed: ()async {
+
+                if (authController.image.value == null) {
+                customErrorMessage(context, 'Please add certificate image');  
+                }else{
+                  final certificate =  await uploadImage(authController.image.value!);
+                  if(certificate != null){
+                    
+                Get.to(() => CreateDrAccount(
+                      doctor: widget.doctor, certificateImage: certificate,
                     ));
+                  }else{
+                    log('Image upload failed');
+                  }
+                }
+                //   log("add failed${widget.doctor.toString()}");
+               
               },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
