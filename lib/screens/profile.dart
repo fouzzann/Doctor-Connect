@@ -1,13 +1,12 @@
-import 'package:cc_dr_side/authentication/login.dart';
+import 'package:cc_dr_side/screens/login_or_register_doctor.dart';
 import 'package:cc_dr_side/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-// ignore: must_be_immutable
 class ProfilePage extends StatelessWidget {
   ProfilePage({super.key});
 
-  Authentication authentication = Authentication();
+  final Authentication authentication = Authentication();
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
@@ -110,7 +109,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                   onTap: () {
                     authentication.googleSignOut();
-                    Get.offAll(() => LoginPage());
+                    Get.offAll(() => LoginOrRegisterDoctor());
                   },
                 ),
                 Padding(

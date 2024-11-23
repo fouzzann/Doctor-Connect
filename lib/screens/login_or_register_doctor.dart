@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:cc_dr_side/authentication/login.dart';
 import 'package:cc_dr_side/screens/dr_details_collect.dart';
 
 class LoginOrRegisterDoctor extends StatelessWidget {
@@ -81,7 +80,7 @@ class LoginOrRegisterDoctor extends StatelessWidget {
                             color: Color(0xFF6C63FF),
                           ),
                         ),
-                        
+
                         // Welcome Text with Gradient
                         ShaderMask(
                           shaderCallback: (bounds) => const LinearGradient(
@@ -119,23 +118,25 @@ class LoginOrRegisterDoctor extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 48),
-                        
+
                         // Login Button
                         _NeumorphicAuthButton(
-                          title: 'Login to Account',
-                          icon: Icons.login_rounded,
-                          gradient: const LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [Color(0xFF6C63FF), Color(0xFF584FE0)],
-                          ),
-                          onTap: () => Get.to(
-                            () => const LoginPage(),
-                            transition: Transition.fadeIn,
-                          ),
-                        ),
+                            title: 'Login to Account',
+                            icon: Icons.login_rounded,
+                            gradient: const LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [Color(0xFF6C63FF), Color(0xFF584FE0)],
+                            ),
+                            onTap: () {}
+
+                            // Get.to(
+                            //   () => const LoginPage(),
+                            //   transition: Transition.fadeIn,
+                            // ),
+                            ),
                         const SizedBox(height: 16),
-                        
+
                         // Register Button
                         _NeumorphicAuthButton(
                           title: 'Create Account',
@@ -150,7 +151,7 @@ class LoginOrRegisterDoctor extends StatelessWidget {
                             transition: Transition.fadeIn,
                           ),
                         ),
-                        
+
                         const SizedBox(height: 40),
                         // Modern Terms Text
                         Container(

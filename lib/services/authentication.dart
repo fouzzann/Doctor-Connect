@@ -1,22 +1,19 @@
 import 'dart:developer';
 
 import 'package:cc_dr_side/model/dr_model.dart';
-import 'package:cc_dr_side/screens/home_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Authentication {
- 
   // Google Login
-  Future<UserCredential?> loginWithGoogle(Doctor doctorData) async {
-     FirebaseAuth _auth=FirebaseAuth.instance;
+  Future<User?> loginWithGoogle() async {
+    FirebaseAuth _auth = FirebaseAuth.instance;
     try {
       final googleUser = await GoogleSignIn().signIn();
       if (googleUser == null) {
         log("Google Sign-In canceled by user");
-      return null;
+        return null;
       }
 
       final googleAuth = await googleUser.authentication;
@@ -26,26 +23,26 @@ class Authentication {
       );
 
       UserCredential userCredential = await _auth.signInWithCredential(cred);
-
-      if (userCredential.user != null) {
-       await dataSubmition(doctorData);
-        Get.to(() => HomePage());
-      }
-      return userCredential;
+      return userCredential.user;
     } catch (e) {
       log("Error during Google Sign-In: $e");
       return null;
     }
   }
-  dataSubmition(Doctor doctorData) async{
-    try{
-       FirebaseAuth _auth=FirebaseAuth.instance;
-     await FirebaseFirestore.instance.collection("doctors").doc(_auth.currentUser!.email).set(doctorData.toMap());
-    }catch(e){
+
+  dataSubmition(Doctor doctorData) async {
+    try {
+      FirebaseAuth _auth = FirebaseAuth.instance;
+      await FirebaseFirestore.instance
+          .collection("doctors")
+          .doc(_auth.currentUser!.email)
+          .set(doctorData.toMap());
+    } catch (e) {
       log("loging error${e}");
     }
   }
-  googleSignOut()async{
+
+  googleSignOut() async {
     await GoogleSignIn().signOut();
     await FirebaseAuth.instance.signOut();
   }

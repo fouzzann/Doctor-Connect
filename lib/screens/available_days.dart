@@ -168,7 +168,7 @@ class _DayPageState extends State<DayPage> {
 
                     // log("hey${doctor!.availableDays}");
                     Get.to(() => AddCertificateImage(
-                          doctor: doctor,
+                          doctor: doctorModel,  
                         ));
                   },
                   style: ElevatedButton.styleFrom(
@@ -190,7 +190,6 @@ class _DayPageState extends State<DayPage> {
       ),
     );
   }
-
   List<String> getSelectedDays() {
     return selectedDays.map((index) => weekDays[index]).toList();
   }
