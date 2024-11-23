@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 
 class AddCertificateImage extends StatefulWidget {
   AddCertificateImage({super.key, required this.doctor});
-   Doctor doctor;
+ final  Doctor doctor;
 
   @override
   State<AddCertificateImage> createState() => _AddCertificateImageState();

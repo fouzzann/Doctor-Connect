@@ -3,8 +3,10 @@ import 'dart:developer';
 import 'package:cc_dr_side/screens/home_page.dart';
 import 'package:cc_dr_side/services/authentication/authentication_service.dart';
 import 'package:cc_dr_side/widgets/custom_error_message.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginDrAccount extends StatefulWidget {
   const LoginDrAccount({super.key, });
@@ -100,6 +102,8 @@ class _LoginDrAccountState extends State<LoginDrAccount> {
             if (isDrExist) {
               Get.offAll(()=>HomePage());
             }else{
+              await FirebaseAuth.instance.signOut();
+              await GoogleSignIn().signOut();
               customErrorMessage(context, "You don't have an account Please create new account");
             }
               }
