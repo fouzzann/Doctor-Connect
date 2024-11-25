@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:cc_dr_side/screens/create_dr_account.dart';
+import 'package:cc_dr_side/screens/sing%20in%20or%20login/create_dr_account.dart';
 import 'package:cc_dr_side/controllers/auth_controller.dart';
 import 'package:cc_dr_side/functions/upload_image_s3bucket.dart';
 import 'package:cc_dr_side/model/dr_model.dart';
@@ -73,13 +73,16 @@ class _AddCertificateImageState extends State<AddCertificateImage> {
                                           color: Colors.grey,
                                           fontSize: 20,
                                           fontWeight: FontWeight.w400,
+                                          
                                         ),
                                       ),
                                     ],
                                   )
                                 : Center(
                                     child: Image.file(
-                                        authController.image.value!)));
+                                        authController.image.value!,
+                                        fit: BoxFit.fill,
+                                        )));
                       },
                     ),
                   ),

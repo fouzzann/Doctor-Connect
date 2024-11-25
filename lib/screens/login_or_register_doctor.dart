@@ -1,4 +1,4 @@
-import 'package:cc_dr_side/screens/login_dr_account.dart';
+import 'package:cc_dr_side/screens/sing%20in%20or%20login/login_dr_account.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cc_dr_side/screens/dr_details_collect.dart';
