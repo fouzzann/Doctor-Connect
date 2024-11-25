@@ -179,9 +179,12 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
                         yearsOfExperience: yearsOfExperienceController.text,
                         certificateImage: '',
                         availableDays: []);
-                    Get.to(() => DayPage(
-                          doctor: doctorModel,
-                        ));
+                    Get.to(
+                      () => DayPage(
+                        doctor: doctorModel,
+                      ),
+                      transition: Transition.rightToLeftWithFade,
+                    );
                   }
                 }
               },

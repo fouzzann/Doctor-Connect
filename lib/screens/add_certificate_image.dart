@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 
 class AddCertificateImage extends StatefulWidget {
   AddCertificateImage({super.key, required this.doctor});
- final  Doctor doctor;
+  final Doctor doctor;
 
   @override
   State<AddCertificateImage> createState() => _AddCertificateImageState();
@@ -73,16 +73,15 @@ class _AddCertificateImageState extends State<AddCertificateImage> {
                                           color: Colors.grey,
                                           fontSize: 20,
                                           fontWeight: FontWeight.w400,
-                                          
                                         ),
                                       ),
                                     ],
                                   )
                                 : Center(
                                     child: Image.file(
-                                        authController.image.value!,
-                                        fit: BoxFit.fill,
-                                        )));
+                                    authController.image.value!,
+                                    fit: BoxFit.fill,
+                                  )));
                       },
                     ),
                   ),
@@ -95,23 +94,25 @@ class _AddCertificateImageState extends State<AddCertificateImage> {
             left: 16,
             right: 16,
             child: ElevatedButton(
-              onPressed: ()async {
-
+              onPressed: () async {
                 if (authController.image.value == null) {
-                customErrorMessage(context, 'Please add certificate image');  
-                }else{
-                  final certificate =  await uploadImage(authController.image.value!);
-                  if(certificate != null){
-                    
-                Get.to(() => CreateDrAccount(
-                      doctor: widget.doctor, certificateImage: certificate,
-                    ));
-                  }else{
+                  customErrorMessage(context, 'Please add certificate image');
+                } else {
+                  final certificate =
+                      await uploadImage(authController.image.value!);
+                  if (certificate != null) {
+                    Get.to(
+                      () => CreateDrAccount(
+                        doctor: widget.doctor,
+                        certificateImage: certificate,
+                      ),
+                      transition: Transition.rightToLeftWithFade,
+                    );
+                  } else {
                     log('Image upload failed');
                   }
                 }
                 //   log("add failed${widget.doctor.toString()}");
-               
               },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),

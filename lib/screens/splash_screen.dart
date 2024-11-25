@@ -47,10 +47,10 @@ class _SplashScreenState extends State<SplashScreen>
       if (_auth.currentUser != null) {
         Get.offAll(() => HomePage());
       } else {
-        Get.replace(()=>LoginOrRegisterDoctor());
-        // Navigator.of(context).pushReplacement(
-        //   MaterialPageRoute(builder: (ctx) => LoginOrRegisterDoctor()),
-        // );
+      
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (ctx) => LoginOrRegisterDoctor()),
+        );
       }
     });
   }

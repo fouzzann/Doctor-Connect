@@ -69,7 +69,7 @@ class LoginOrRegisterDoctor extends StatelessWidget {
                             borderRadius: BorderRadius.circular(26),
                             boxShadow: [
                               BoxShadow(
-                                color: const Color(0xFF6C63FF).withOpacity(0.2),
+                                color: const Color(0xFF6C63FF).withOpacity(0.12),
                                 blurRadius: 30,
                                 offset: const Offset(0, 10),
                               ),
@@ -132,7 +132,7 @@ class LoginOrRegisterDoctor extends StatelessWidget {
                             onTap: () {
                                  Get.to(
                               () => const LoginDrAccount(),
-                              transition: Transition.fadeIn,
+                              transition: Transition.rightToLeftWithFade,
                             );
                             }
                       
@@ -151,7 +151,7 @@ class LoginOrRegisterDoctor extends StatelessWidget {
                           ),
                           onTap: () => Get.to(
                             () => DrDetailsCollect(),
-                            transition: Transition.fadeIn,
+                             transition: Transition.rightToLeftWithFade,
                           ),
                         ),
 

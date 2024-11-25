@@ -12,7 +12,15 @@ class DayPage extends StatefulWidget {
 
 class _DayPageState extends State<DayPage> {
   final Set<int> selectedDays = {};
-  final List<String> weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  final List<String> weekDays = [
+    'Mon',
+    'Tue',
+    'Wed',
+    'Thu',
+    'Fri',
+    'Sat',
+    'Sun'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +68,12 @@ class _DayPageState extends State<DayPage> {
           LinearProgressIndicator(
             value: 0.7,
             backgroundColor: Colors.grey[100],
-            valueColor: AlwaysStoppedAnimation<Color>( Color(0xFF4A78FF),),
+            valueColor: AlwaysStoppedAnimation<Color>(
+              Color(0xFF4A78FF),
+            ),
             minHeight: 2,
           ),
-          
+
           Expanded(
             child: CustomScrollView(
               slivers: [
@@ -104,10 +114,14 @@ class _DayPageState extends State<DayPage> {
                           child: AnimatedContainer(
                             duration: Duration(milliseconds: 200),
                             decoration: BoxDecoration(
-                              color: isSelected ? Colors.blue.shade50 : Colors.grey[50],
+                              color: isSelected
+                                  ? Colors.blue.shade50
+                                  : Colors.grey[50],
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
-                                color: isSelected ? Color(0xFF4A78FF) : Colors.transparent,
+                                color: isSelected
+                                    ? Color(0xFF4A78FF)
+                                    : Colors.transparent,
                                 width: 2,
                               ),
                             ),
@@ -123,7 +137,8 @@ class _DayPageState extends State<DayPage> {
                                         color: Color(0xFF4A78FF),
                                         shape: BoxShape.circle,
                                       ),
-                                      child: Icon(Icons.check, color: Colors.white, size: 12),
+                                      child: Icon(Icons.check,
+                                          color: Colors.white, size: 12),
                                     ),
                                   ),
                                 Center(
@@ -131,8 +146,12 @@ class _DayPageState extends State<DayPage> {
                                     weekDays[index],
                                     style: TextStyle(
                                       fontSize: 16,
-                                      fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                                      color: isSelected ?  Color(0xFF4A78FF) : Colors.black87,
+                                      fontWeight: isSelected
+                                          ? FontWeight.w600
+                                          : FontWeight.w500,
+                                      color: isSelected
+                                          ? Color(0xFF4A78FF)
+                                          : Colors.black87,
                                     ),
                                   ),
                                 ),
@@ -151,7 +170,8 @@ class _DayPageState extends State<DayPage> {
                   SliverToBoxAdapter(
                     child: Container(
                       margin: EdgeInsets.all(24),
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                       decoration: BoxDecoration(
                         color: Colors.blue.shade50,
                         borderRadius: BorderRadius.circular(20),
@@ -163,7 +183,7 @@ class _DayPageState extends State<DayPage> {
                             'Selected Days',
                             style: TextStyle(
                               fontSize: 14,
-                              color:  Color(0xFF4A78FF),
+                              color: Color(0xFF4A78FF),
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -172,11 +192,13 @@ class _DayPageState extends State<DayPage> {
                             spacing: 8,
                             children: selectedDays.map((index) {
                               return Container(
-                                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 6),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(color: Colors.blue.shade200),
+                                  border:
+                                      Border.all(color: Colors.blue.shade200),
                                 ),
                                 child: Text(
                                   weekDays[index],
@@ -217,7 +239,8 @@ class _DayPageState extends State<DayPage> {
                     onPressed: selectedDays.isEmpty
                         ? null
                         : () {
-                            List<String> selected = selectedDays.map((n) => weekDays[n]).toList();
+                            List<String> selected =
+                                selectedDays.map((n) => weekDays[n]).toList();
                             final doctorModel = Doctor(
                               image: widget.doctor.image,
                               fullName: widget.doctor.fullName,
@@ -230,11 +253,15 @@ class _DayPageState extends State<DayPage> {
                               location: '',
                               isAccepted: false,
                               consultationFee: widget.doctor.consultationFee,
-                              yearsOfExperience: widget.doctor.yearsOfExperience,
+                              yearsOfExperience:
+                                  widget.doctor.yearsOfExperience,
                               certificateImage: '',
                               availableDays: selected,
                             );
-                            Get.to(() => AddCertificateImage(doctor: doctorModel));
+                            Get.to(
+                              () => AddCertificateImage(doctor: doctorModel),
+                              transition: Transition.rightToLeftWithFade,
+                            );
                           },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF4A78FF),
@@ -256,7 +283,6 @@ class _DayPageState extends State<DayPage> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-               
                       ],
                     ),
                   ),
