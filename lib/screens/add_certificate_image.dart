@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:cc_dr_side/screens/sing%20in%20or%20login/create_dr_account.dart';
+import 'package:cc_dr_side/screens/singn%20in%20or%20login/create_dr_account.dart';
 import 'package:cc_dr_side/controllers/auth_controller.dart';
 import 'package:cc_dr_side/functions/upload_image_s3bucket.dart';
 import 'package:cc_dr_side/model/dr_model.dart';

@@ -1,6 +1,6 @@
 import 'package:cc_dr_side/screens/appointment_page.dart';
 import 'package:cc_dr_side/screens/messages_page.dart';
-import 'package:cc_dr_side/screens/profile.dart';
+import 'package:cc_dr_side/screens/profile%20page/profile.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
             label: 'Appointment',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.message),
+            icon: Icon(Icons.messenger_outlined),
             label: 'Messages',
           ),
           BottomNavigationBarItem(

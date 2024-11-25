@@ -1,4 +1,5 @@
 import 'package:cc_dr_side/screens/login_or_register_doctor.dart';
+import 'package:cc_dr_side/screens/profile%20page/privecy_and_policy.dart';
 import 'package:cc_dr_side/services/authentication/authentication_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -45,33 +46,7 @@ class ProfilePage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: [
-                        TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Edit',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                          size: 15,
-                        )
-                      ],
-                    )
-                  ],
-                ),
+             
               ],
             ),
           ),
@@ -88,7 +63,9 @@ class ProfilePage extends StatelessWidget {
                 ListTile(
                   leading: const Icon(Icons.shield, color: Color(0xFF4A78FF)),
                   title: const Text("Privacy and Policy"),
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => PrivacyPolicyPage());
+                  },
                 ),
                 ListTile(
                   leading: const Icon(Icons.padding_rounded,
@@ -108,8 +85,40 @@ class ProfilePage extends StatelessWidget {
                     style: TextStyle(color: Colors.red),
                   ),
                   onTap: () {
-                    authentication.googleSignOut();
-                    Get.offAll(() => LoginOrRegisterDoctor());
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text(
+                          'Logout',
+                          style: TextStyle(
+                            color: Color(0xFF4A78FF),
+                          ),
+                        ),
+                        content: Text(
+                            'Are you sure you want to Logout from Docter Connect'),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                  color: Color(0xFF4A78FF),
+                                ),
+                              )),
+                          TextButton(
+                              onPressed: () {
+                                authentication.googleSignOut();
+                                Get.offAll(() => LoginOrRegisterDoctor());
+                              },
+                              child: Text(
+                                'Confirm',
+                                style: TextStyle(color: Colors.red),
+                              ))
+                        ],
+                      ),
+                    );
                   },
                 ),
                 Padding(

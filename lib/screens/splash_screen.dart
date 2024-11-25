@@ -47,9 +47,10 @@ class _SplashScreenState extends State<SplashScreen>
       if (_auth.currentUser != null) {
         Get.offAll(() => HomePage());
       } else {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (ctx) => LoginOrRegisterDoctor()),
-        );
+        Get.replace(()=>LoginOrRegisterDoctor());
+        // Navigator.of(context).pushReplacement(
+        //   MaterialPageRoute(builder: (ctx) => LoginOrRegisterDoctor()),
+        // );
       }
     });
   }
@@ -71,8 +72,8 @@ class _SplashScreenState extends State<SplashScreen>
             end: Alignment.bottomCenter,
             colors: [
               Color(0xFF4A78FF),
-              const Color(0xFF0A867A).withOpacity(0.8),
-              const Color(0xFF0A867A).withOpacity(0.6),
+               Color(0xFF4A78FF),
+               Colors.white
             ],
           ),
         ),
@@ -161,7 +162,7 @@ class _SplashScreenState extends State<SplashScreen>
 
                 const SizedBox(height: 20),
 
-                // Loading Text
+
                 Opacity(
                   opacity: _fadeAnimation.value,
                   child: const Text(
