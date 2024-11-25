@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:cc_dr_side/functions/upload_image_s3bucket.dart';
 import 'package:cc_dr_side/model/dr_model.dart';
-import 'package:cc_dr_side/screens/available_days.dart';
+import 'package:cc_dr_side/views/screens/available_days.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';

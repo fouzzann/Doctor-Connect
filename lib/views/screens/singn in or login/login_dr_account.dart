@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:cc_dr_side/screens/home_page.dart';
+import 'package:cc_dr_side/views/screens/home_page.dart';
 import 'package:cc_dr_side/services/authentication/authentication_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

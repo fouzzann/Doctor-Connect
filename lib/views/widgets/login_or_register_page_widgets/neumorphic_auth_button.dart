@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class _NeumorphicAuthButton extends StatelessWidget {
+class NeumorphicAuthButton extends StatelessWidget {
   final String title;
   final IconData icon;
   final LinearGradient gradient;
   final VoidCallback onTap;
 
-  const _NeumorphicAuthButton({
+  const NeumorphicAuthButton({
     required this.title,
     required this.icon,
     required this.gradient,

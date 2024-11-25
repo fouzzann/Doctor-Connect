@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cc_dr_side/model/dr_model.dart';
-import 'package:cc_dr_side/screens/add_certificate_image.dart';
+import 'package:cc_dr_side/views/screens/add_certificate_image.dart';
 
 class DayPage extends StatefulWidget {
   const DayPage({super.key, required this.doctor});

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cc_dr_side/model/dr_model.dart';
-import 'package:cc_dr_side/screens/home_page.dart';
+import 'package:cc_dr_side/views/screens/home_page.dart';
 import 'package:cc_dr_side/services/authentication/authentication_service.dart';
 
 class CreateDrAccount extends StatefulWidget {
