@@ -4,7 +4,7 @@ import 'package:cc_dr_side/views/screens/singn%20in%20or%20login/create_dr_accou
 import 'package:cc_dr_side/controllers/auth_controller.dart';
 import 'package:cc_dr_side/functions/upload_image_s3bucket.dart';
 import 'package:cc_dr_side/model/dr_model.dart';
-import 'package:cc_dr_side/views/utils/costum_widgets/custom_error_message.dart';
+import 'package:cc_dr_side/views/widgets/custom_error_message.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

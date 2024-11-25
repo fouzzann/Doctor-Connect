@@ -112,7 +112,7 @@ class _DayPageState extends State<DayPage> {
                             });
                           },
                           child: AnimatedContainer(
-                            duration: Duration(milliseconds: 200),
+                            duration: Duration(milliseconds: 700),
                             decoration: BoxDecoration(
                               color: isSelected
                                   ? Colors.blue.shade50
