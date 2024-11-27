@@ -86,8 +86,10 @@ class ProfilePage extends StatelessWidget {
                   ),
                   onTap: () {
                     showDialog(
+                      
                       context: context,
                       builder: (context) => AlertDialog(
+                        backgroundColor: Colors.white,
                         title: Text(
                           'Logout',
                           style: TextStyle(

@@ -2,18 +2,18 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:cc_dr_side/functions/upload_image_s3bucket.dart';
 import 'package:cc_dr_side/model/dr_model.dart';
-import 'package:cc_dr_side/views/screens/available_days.dart';
+import 'package:cc_dr_side/views/screens/select_available_days.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
 
-class DrDetailsCollect extends StatefulWidget {
+class AddDrProfile extends StatefulWidget {
   @override
-  _DrDetailsCollectState createState() => _DrDetailsCollectState();
+  _AddDrProfileState createState() => _AddDrProfileState();
 }
 
-class _DrDetailsCollectState extends State<DrDetailsCollect> {
+class _AddDrProfileState extends State<AddDrProfile> {
   Doctor? doctor;
   File? _image;
   final ImagePicker _picker = ImagePicker();
@@ -47,6 +47,7 @@ class _DrDetailsCollectState extends State<DrDetailsCollect> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: IconButton(onPressed: (){Get.back();}, icon: Icon(Icons.arrow_back_ios_new)),
         title: Text(
           "Add Profile",
           style: TextStyle(fontWeight: FontWeight.bold),

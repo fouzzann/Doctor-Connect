@@ -37,7 +37,7 @@ class _DayPageState extends State<DayPage> {
               color: Colors.grey[100],
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(Icons.arrow_back, color: Colors.black87, size: 20),
+            child: Icon(Icons.arrow_back_ios_new, color: Colors.black87, size: 20),
           ),
         ),
         title: Column(

@@ -1,4 +1,4 @@
-import 'package:cc_dr_side/views/screens/dr_details_collect.dart';
+import 'package:cc_dr_side/views/screens/add_dr_profile.dart';
 import 'package:cc_dr_side/views/screens/singn%20in%20or%20login/login_dr_account.dart';
 import 'package:cc_dr_side/views/widgets/login_or_register_page_widgets/neumorphic_auth_button.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +37,7 @@ class LoginAndCreateButtonWidget extends StatelessWidget {
             colors: [Color(0xFF4CAF50), Color(0xFF388E3C)],
           ),
           onTap: () => Get.to(
-            () => DrDetailsCollect(),
+            () => AddDrProfile(),
             transition: Transition.rightToLeftWithFade,
           ),
         ),
