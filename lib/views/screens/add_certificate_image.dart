@@ -4,7 +4,7 @@ import 'package:cc_dr_side/views/screens/singn%20in%20or%20login/create_dr_accou
 import 'package:cc_dr_side/controllers/auth_controller.dart';
 import 'package:cc_dr_side/functions/upload_image_s3bucket.dart';
 import 'package:cc_dr_side/model/dr_model.dart';
-import 'package:cc_dr_side/views/widgets/custom_error_message.dart';
+import 'package:cc_dr_side/views/utils/costum_widgets/custom_error_message.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +19,7 @@ class AddCertificateImage extends StatefulWidget {
 class _AddCertificateImageState extends State<AddCertificateImage> {
   // Doctor ?doctor;
   Widget build(BuildContext context) {
-    final authController = Get.put(AuthController());
+    final AuthController authController = Get.put(AuthController());
 
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
@@ -57,7 +57,7 @@ class _AddCertificateImageState extends State<AddCertificateImage> {
                               borderRadius: BorderRadius.circular(40),
                               color: Colors.white,
                             ),
-                            child: authController.image.value == null
+                            child: authController.certificateImage.value == null
                                 ? Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -79,7 +79,7 @@ class _AddCertificateImageState extends State<AddCertificateImage> {
                                   )
                                 : Center(
                                     child: Image.file(
-                                    authController.image.value!,
+                                    authController.certificateImage.value!,
                                     fit: BoxFit.fill,
                                   )));
                       },
@@ -95,11 +95,11 @@ class _AddCertificateImageState extends State<AddCertificateImage> {
             right: 16,
             child: ElevatedButton(
               onPressed: () async {
-                if (authController.image.value == null) {
+                if (authController.certificateImage.value == null) {
                   customErrorMessage(context, 'Please add certificate image');
                 } else {
                   final certificate =
-                      await uploadImage(authController.image.value!);
+                      await uploadImage(authController.certificateImage.value!);
                   if (certificate != null) {
                     Get.to(
                       () => CreateDrAccount(

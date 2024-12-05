@@ -26,7 +26,7 @@ class LoginOrRegisterDoctor extends StatelessWidget {
                   ],
                 ),
               ),
-            ), 
+            ),
           ),
           Positioned(
             bottom: -150,
@@ -45,7 +45,6 @@ class LoginOrRegisterDoctor extends StatelessWidget {
               ),
             ),
           ),
-          // Main Content
           SafeArea(
             child: CustomScrollView(
               slivers: [
@@ -57,7 +56,6 @@ class LoginOrRegisterDoctor extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        // Modern Logo Container
                         Container(
                           width: 100,
                           height: 100,
@@ -67,7 +65,8 @@ class LoginOrRegisterDoctor extends StatelessWidget {
                             borderRadius: BorderRadius.circular(26),
                             boxShadow: [
                               BoxShadow(
-                                color: const Color(0xFF6C63FF).withOpacity(0.12),
+                                color:
+                                    const Color(0xFF6C63FF).withOpacity(0.12),
                                 blurRadius: 30,
                                 offset: const Offset(0, 10),
                               ),
@@ -79,8 +78,6 @@ class LoginOrRegisterDoctor extends StatelessWidget {
                             color: Color(0xFF6C63FF),
                           ),
                         ),
-
-                        // Welcome Text with Gradient
                         ShaderMask(
                           shaderCallback: (bounds) => const LinearGradient(
                             colors: [Color(0xFF2D3142), Color(0xFF6C63FF)],
@@ -117,13 +114,9 @@ class LoginOrRegisterDoctor extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 48),
-
-                        // Login Button
-                     LoginAndCreateButtonWidget(),
-
+                        LoginAndCreateButtonWidget(),
                         const SizedBox(height: 40),
-                        // Modern Terms Text
-                      TermsAndServiceWidget()
+                        TermsAndServiceWidget()
                       ],
                     ),
                   ),
@@ -136,4 +129,3 @@ class LoginOrRegisterDoctor extends StatelessWidget {
     );
   }
 }
-

@@ -1,4 +1,8 @@
+import 'dart:developer';
+
+import 'package:cc_dr_side/services/authentication/dr_service.dart';
 import 'package:cc_dr_side/views/screens/home_page.dart';
+import 'package:cc_dr_side/views/screens/is_accepted_by_the_admin.dart';
 import 'package:cc_dr_side/views/screens/login_or_register_doctor.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-    
+
     _controller = AnimationController(
       duration: const Duration(milliseconds: 2000),
       vsync: this,
@@ -43,11 +47,17 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller.forward();
 
-    Future.delayed(const Duration(seconds: 6), () {
+    Future.delayed(const Duration(seconds: 4), () async {
       if (_auth.currentUser != null) {
-        Get.offAll(() => HomePage());
+        final bool isAccepted = await DoctorService()
+            .CheckDrAccepted(_auth.currentUser!.email.toString());
+        log(isAccepted.toString());
+        if (isAccepted) {
+          Get.offAll(() => HomePage());
+        } else {
+          Get.offAll(() => IsAcceptedByTheAdmin());
+        }
       } else {
-      
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (ctx) => LoginOrRegisterDoctor()),
         );
@@ -70,11 +80,7 @@ class _SplashScreenState extends State<SplashScreen>
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF4A78FF),
-               Color(0xFF4A78FF),
-               Colors.white
-            ],
+            colors: [Color(0xFF4A78FF), Color(0xFF4A78FF), Colors.white],
           ),
         ),
         child: AnimatedBuilder(
@@ -161,7 +167,6 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
 
                 const SizedBox(height: 20),
-
 
                 Opacity(
                   opacity: _fadeAnimation.value,

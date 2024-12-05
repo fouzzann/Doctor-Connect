@@ -37,7 +37,8 @@ class _DayPageState extends State<DayPage> {
               color: Colors.grey[100],
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(Icons.arrow_back_ios_new, color: Colors.black87, size: 20),
+            child:
+                Icon(Icons.arrow_back_ios_new, color: Colors.black87, size: 20),
           ),
         ),
         title: Column(
@@ -218,7 +219,6 @@ class _DayPageState extends State<DayPage> {
             ),
           ),
 
-          // Bottom Action Area
           Container(
             padding: EdgeInsets.all(24),
             decoration: BoxDecoration(
@@ -250,7 +250,7 @@ class _DayPageState extends State<DayPage> {
                               uid: '',
                               category: widget.doctor.category,
                               hospitalName: widget.doctor.hospitalName,
-                              location: '',
+                              location: widget.doctor.location,
                               isAccepted: false,
                               consultationFee: widget.doctor.consultationFee,
                               yearsOfExperience:

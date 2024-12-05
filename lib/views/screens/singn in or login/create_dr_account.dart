@@ -1,18 +1,18 @@
 import 'dart:developer';
+import 'package:cc_dr_side/views/screens/is_accepted_by_the_admin.dart';
+import 'package:cc_dr_side/views/utils/costum_widgets/costum_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cc_dr_side/model/dr_model.dart';
-import 'package:cc_dr_side/views/screens/home_page.dart';
 import 'package:cc_dr_side/services/authentication/authentication_service.dart';
 
 class CreateDrAccount extends StatefulWidget {
   const CreateDrAccount({
-    super.key, 
-    required this.doctor, 
+    super.key,
+    required this.doctor,
     required this.certificateImage,
   });
-  
+
   final Doctor doctor;
   final String certificateImage;
 
@@ -24,53 +24,50 @@ class _CreateDrAccountState extends State<CreateDrAccount> {
   final Authentication authentication = Authentication();
   bool isLoading = false;
 
-  @override
-  void initState() {
-    super.initState();
-    _setupAuthListener();
-  }
-
-  void _setupAuthListener() {
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user != null) {
-        Get.offAll(() => HomePage());
-      }
-    });
-  }
-
   Future<void> _handleGoogleSignIn() async {
     setState(() => isLoading = true);
-    
+
     try {
       log("Doctor data: ${widget.doctor.toString()}");
       final user = await authentication.loginWithGoogle();
-      
+
       if (user != null) {
-        final fullDoctorData = Doctor(
-          image: widget.doctor.image,
-          fullName: widget.doctor.fullName,
-          age: widget.doctor.age,
-          email: user.email!,
-          gender: widget.doctor.gender,
-          uid: user.uid,
-          category: widget.doctor.category,
-          hospitalName: widget.doctor.hospitalName,
-          location: '',
-          isAccepted: false,
-          consultationFee: widget.doctor.consultationFee,
-          yearsOfExperience: widget.doctor.yearsOfExperience,
-          certificateImage: widget.certificateImage,
-          availableDays: widget.doctor.availableDays,
-        );
-        
-        await authentication.dataSubmition(fullDoctorData);
+        final bool isDrExist = await authentication.checkDrExist(user.email!);
+        log(isDrExist.toString());
+        if (isDrExist) {
+          showErrorDialog(context,
+              message:
+                  'You have already an account please try to login your existing account');
+          await authentication.googleSignOut();
+        } else {
+          final fullDoctorData = Doctor(
+            image: widget.doctor.image,
+            fullName: widget.doctor.fullName,
+            age: widget.doctor.age,
+            email: user.email!,
+            gender: widget.doctor.gender,
+            uid: user.uid,
+            category: widget.doctor.category,
+            hospitalName: widget.doctor.hospitalName,
+            location: widget.doctor.location,
+            isAccepted: false,
+            consultationFee: widget.doctor.consultationFee,
+            yearsOfExperience: widget.doctor.yearsOfExperience,
+            certificateImage: widget.certificateImage,
+            availableDays: widget.doctor.availableDays,
+          );
+
+          await authentication.dataSubmition(fullDoctorData);
+
+          Get.offAll(() => IsAcceptedByTheAdmin());
+        }
       } else {
         log('User is null');
-        _showErrorDialog('Sign in failed. Please try again.');
+        showErrorDialog(context, message: 'Sign in failed. Please try again.');
       }
     } catch (e) {
       log('Login failed: $e');
-      _showErrorDialog('An error occurred during sign in.');
+      showErrorDialog(context, message: 'An error occurred during sign in.');
     } finally {
       setState(() => isLoading = false);
     }
@@ -83,7 +80,6 @@ class _CreateDrAccountState extends State<CreateDrAccount> {
       body: SafeArea(
         child: Column(
           children: [
-            // App Bar
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
@@ -103,11 +99,10 @@ class _CreateDrAccountState extends State<CreateDrAccount> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 40), // Balance for back button
+                  const SizedBox(width: 40),
                 ],
               ),
             ),
-
             Expanded(
               child: Container(
                 width: double.infinity,
@@ -120,7 +115,6 @@ class _CreateDrAccountState extends State<CreateDrAccount> {
                 ),
                 child: Column(
                   children: [
-                    // Hero Image
                     Expanded(
                       flex: 4,
                       child: Container(
@@ -131,8 +125,6 @@ class _CreateDrAccountState extends State<CreateDrAccount> {
                         ),
                       ),
                     ),
-
-                    // Welcome Text
                     Expanded(
                       flex: 3,
                       child: Padding(
@@ -141,26 +133,30 @@ class _CreateDrAccountState extends State<CreateDrAccount> {
                           children: [
                             Text(
                               'Almost There!',
-                              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                color: const Color(0xFF4A78FF),
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium
+                                  ?.copyWith(
+                                    color: const Color(0xFF4A78FF),
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             ),
                             const SizedBox(height: 16),
                             Text(
                               'Join our trusted network. Register your profile, manage appointments, and connect with patients.',
                               textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                color: Colors.grey[600],
-                                height: 1.5,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                    color: Colors.grey[600],
+                                    height: 1.5,
+                                  ),
                             ),
                           ],
                         ),
                       ),
                     ),
-
-                    // Sign In Button
                     Expanded(
                       flex: 2,
                       child: Column(
@@ -176,7 +172,8 @@ class _CreateDrAccountState extends State<CreateDrAccount> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
                                 foregroundColor: Colors.black87,
-                                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 32, vertical: 16),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30),
                                   side: BorderSide(color: Colors.grey.shade300),
@@ -211,23 +208,6 @@ class _CreateDrAccountState extends State<CreateDrAccount> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  void _showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Error'),
-        content: Text(message),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
-          ),
-        ],
       ),
     );
   }

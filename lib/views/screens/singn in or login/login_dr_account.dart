@@ -1,6 +1,9 @@
 import 'dart:developer';
+import 'package:cc_dr_side/services/authentication/dr_service.dart';
 import 'package:cc_dr_side/views/screens/home_page.dart';
 import 'package:cc_dr_side/services/authentication/authentication_service.dart';
+import 'package:cc_dr_side/views/screens/is_accepted_by_the_admin.dart';
+import 'package:cc_dr_side/views/utils/costum_widgets/costum_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,7 +26,6 @@ class _LoginDrAccountState extends State<LoginDrAccount> {
       body: SafeArea(
         child: Column(
           children: [
-            // App Bar
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
@@ -43,11 +45,10 @@ class _LoginDrAccountState extends State<LoginDrAccount> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 40), // Balance for back button
+                  const SizedBox(width: 40),
                 ],
               ),
             ),
-
             Expanded(
               child: Container(
                 width: double.infinity,
@@ -60,7 +61,6 @@ class _LoginDrAccountState extends State<LoginDrAccount> {
                 ),
                 child: Column(
                   children: [
-                    // Hero Image
                     Expanded(
                       flex: 4,
                       child: Container(
@@ -71,8 +71,6 @@ class _LoginDrAccountState extends State<LoginDrAccount> {
                         ),
                       ),
                     ),
-
-                    // Welcome Text
                     Expanded(
                       flex: 3,
                       child: Padding(
@@ -81,26 +79,30 @@ class _LoginDrAccountState extends State<LoginDrAccount> {
                           children: [
                             Text(
                               'Welcome to DoctorConnect',
-                              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                color: const Color(0xFF4A78FF),
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium
+                                  ?.copyWith(
+                                    color: const Color(0xFF4A78FF),
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             ),
                             const SizedBox(height: 16),
                             Text(
                               'Join our trusted network. Register your profile, manage appointments, and connect with patients.',
                               textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                color: Colors.grey[600],
-                                height: 1.5,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                    color: Colors.grey[600],
+                                    height: 1.5,
+                                  ),
                             ),
                           ],
                         ),
                       ),
                     ),
-
-                    // Sign In Button
                     Expanded(
                       flex: 2,
                       child: Column(
@@ -109,26 +111,38 @@ class _LoginDrAccountState extends State<LoginDrAccount> {
                           ElevatedButton(
                             onPressed: () async {
                               try {
-                                final user = await authentication.loginWithGoogle();
+                                final user =
+                                    await authentication.loginWithGoogle();
                                 if (user != null) {
-                                  final bool isDrExist = await authentication.checkDrExist(user.email!);
+                                  final bool isDrExist = await authentication
+                                      .checkDrExist(user.email!);
                                   log(isDrExist.toString());
                                   if (isDrExist) {
-                                    Get.offAll(() => HomePage());
+                                    final bool isAccepted =
+                                        await DoctorService()
+                                            .CheckDrAccepted(user.email!);
+                                    if (isAccepted) {
+                                      Get.offAll(() => HomePage());
+                                    } else {
+                                      Get.offAll(() => IsAcceptedByTheAdmin());
+                                    }
                                   } else {
                                     await FirebaseAuth.instance.signOut();
                                     await GoogleSignIn().signOut();
-                                    _showErrorDialog(context);
+                                    showErrorDialog(context);
                                   }
                                 }
                               } catch (e) {
-                                _showErrorDialog(context, message: 'An error occurred. Please try again.');
+                                showErrorDialog(context,
+                                    message:
+                                        'An error occurred. Please try again.');
                               }
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
                               foregroundColor: Colors.black87,
-                              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 32, vertical: 16),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),
                                 side: BorderSide(color: Colors.grey.shade300),
@@ -163,23 +177,6 @@ class _LoginDrAccountState extends State<LoginDrAccount> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  void _showErrorDialog(BuildContext context, {String message = "You don't have an account. Please create a new account."}) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Error'),
-        content: Text(message),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
-          ),
-        ],
       ),
     );
   }

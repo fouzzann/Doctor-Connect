@@ -18,6 +18,8 @@ class _AddDrProfileState extends State<AddDrProfile> {
   File? _image;
   final ImagePicker _picker = ImagePicker();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  // TextEditingControllers
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController hospitalNameController = TextEditingController();
   final TextEditingController AgeController = TextEditingController();
@@ -27,7 +29,9 @@ class _AddDrProfileState extends State<AddDrProfile> {
       TextEditingController();
   final TextEditingController consultationFeeController =
       TextEditingController();
-  bool isImage = false;
+  final TextEditingController locationController =
+      TextEditingController(); // New Location Controller
+
   Future<void> _pickImage() async {
     try {
       final XFile? pickedImage =
@@ -47,7 +51,12 @@ class _AddDrProfileState extends State<AddDrProfile> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: IconButton(onPressed: (){Get.back();}, icon: Icon(Icons.arrow_back_ios_new)),
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back_ios_new),
+        ),
         title: Text(
           "Add Profile",
           style: TextStyle(fontWeight: FontWeight.bold),
@@ -114,21 +123,60 @@ class _AddDrProfileState extends State<AddDrProfile> {
                     SizedBox(height: 20),
                     _buildDropdownField(categoryController, 'Category',
                         'Select your category', [
-                      'General',
+                      'Addiction Medicine Specialist',
+                      'Allergist/Immunologist',
+                      'Anesthesiologist',
                       'Cardiologist',
-                      'Dermatologist',
-                      'Pediatrician',
-                      'Orthopedic',
-                      'Gynecologist',
-                      'Neurologist',
-                      'Psychiatrist',
+                      'Chiropractor',
+                      'Clinical Pharmacologist',
+                      'Clinical Psychologist',
+                      'Critical Care Specialist',
                       'Dentist',
-                      'Ophthalmologist',
+                      'Dermatologist',
+                      'Emergency Medicine Specialist',
                       'Endocrinologist',
+                      'ENT Specialist (Otolaryngologist)',
+                      'Family Medicine Physician',
+                      'Forensic Pathologist',
                       'Gastroenterologist',
+                      'General Physician',
+                      'Geriatrician',
+                      'Gynecologist',
+                      'Hematologist',
+                      'Holistic Medicine Practitioner',
+                      'Hospitalist',
+                      'Hyperbaric Medicine Specialist',
+                      'Infectious Disease Specialist',
+                      'Integrative Medicine Specialist',
+                      'Maxillofacial Surgeon',
+                      'Medical Geneticist',
+                      'Neonatologist',
+                      'Nephrologist',
+                      'Neurologist',
+                      'Occupational Medicine Specialist',
                       'Oncologist',
+                      'Ophthalmologist',
+                      'Orthopedic',
+                      'Pain Management Specialist',
+                      'Pathologist',
+                      'Pediatric Surgeon',
+                      'Pediatrician',
+                      'Physiotherapist',
+                      'Plastic Surgeon',
+                      'Podiatrist',
+                      'Pulmonologist',
+                      'Psychiatrist',
+                      'Radiologist',
+                      'Reproductive Endocrinologist',
+                      'Rheumatologist',
+                      'Sleep Medicine Specialist',
+                      'Sports Medicine Specialist',
+                      'Thoracic Surgeon',
+                      'Trauma Surgeon',
+                      'Transplant Surgeon',
                       'Urologist',
-                      'Physiotherapist'
+                      'Vascular Surgeon',
+                      'Veterinary Doctor'
                     ]),
                     SizedBox(height: 20),
                     _buildTextField(yearsOfExperienceController,
@@ -146,6 +194,9 @@ class _AddDrProfileState extends State<AddDrProfile> {
                           FilteringTextInputFormatter.digitsOnly,
                           LengthLimitingTextInputFormatter(10),
                         ]),
+                    SizedBox(height: 20),
+                    _buildTextField(locationController, 'Location',
+                        'Enter your location'), // New Location Field
                   ],
                 ),
               ),
@@ -174,7 +225,7 @@ class _AddDrProfileState extends State<AddDrProfile> {
                         uid: '',
                         category: categoryController.text,
                         hospitalName: hospitalNameController.text,
-                        location: '',
+                        location: locationController.text,
                         isAccepted: false,
                         consultationFee: consultationFeeController.text,
                         yearsOfExperience: yearsOfExperienceController.text,

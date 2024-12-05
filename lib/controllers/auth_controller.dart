@@ -5,17 +5,29 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AuthController extends GetxController {
-  var image = Rx<File?>(null);
-
+  var certificateImage = Rx<File?>(null);
+  Rx<File?>  profileImage = Rx<File?>(null);
   final ImagePicker _picker = ImagePicker();
   Future<void> PicCertificateImage() async {
     try {
       final XFile? pickedImage =
           await _picker.pickImage(source: ImageSource.gallery);
       if (pickedImage != null) {
-        image.value = File(pickedImage.path);
+        certificateImage.value = File(pickedImage.path);
       }
-    } catch (e) { 
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  Future<void> PicProfileImage() async {
+    try {
+      final XFile? pickedImage =
+          await _picker.pickImage(source: ImageSource.gallery);
+      if (pickedImage != null) {
+        profileImage.value = File(pickedImage.path);
+      }
+    } catch (e) {
       log(e.toString());
     }
   }
