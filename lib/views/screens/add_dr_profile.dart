@@ -18,8 +18,6 @@ class _AddDrProfileState extends State<AddDrProfile> {
   File? _image;
   final ImagePicker _picker = ImagePicker();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  // TextEditingControllers
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController hospitalNameController = TextEditingController();
   final TextEditingController AgeController = TextEditingController();
@@ -29,8 +27,7 @@ class _AddDrProfileState extends State<AddDrProfile> {
       TextEditingController();
   final TextEditingController consultationFeeController =
       TextEditingController();
-  final TextEditingController locationController =
-      TextEditingController(); // New Location Controller
+  final TextEditingController locationController = TextEditingController();
 
   Future<void> _pickImage() async {
     try {
@@ -69,7 +66,7 @@ class _AddDrProfileState extends State<AddDrProfile> {
           SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 80), // Add bottom padding
+              padding: const EdgeInsets.only(bottom: 80),
               child: Form(
                 key: _formKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -116,7 +113,12 @@ class _AddDrProfileState extends State<AddDrProfile> {
                     _buildTextField(hospitalNameController, 'Hospital Name',
                         'Enter your hospital name'),
                     SizedBox(height: 20),
-                    _buildTextField(AgeController, 'Age', 'Enter your Age'),
+                    _buildTextField(AgeController, 'Age', 'Enter your Age',
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(3),
+                        ]),
                     SizedBox(height: 20),
                     _buildDropdownField(genderController, 'Gender',
                         'Select your gender', ['Male', 'Female']),
@@ -195,8 +197,8 @@ class _AddDrProfileState extends State<AddDrProfile> {
                           LengthLimitingTextInputFormatter(10),
                         ]),
                     SizedBox(height: 20),
-                    _buildTextField(locationController, 'Location',
-                        'Enter your location'), // New Location Field
+                    _buildTextField(
+                        locationController, 'Location', 'Enter your location'),
                   ],
                 ),
               ),
@@ -210,33 +212,57 @@ class _AddDrProfileState extends State<AddDrProfile> {
               onPressed: () async {
                 if (_image == null) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text('Please add image'),
+                    content: Text('Please add an image'),
                     backgroundColor: Colors.red,
                   ));
                 } else {
                   if (_formKey.currentState?.validate() ?? false) {
-                    final String? profileUrl = await uploadImage(_image!);
-                    final doctorModel = Doctor(
-                        image: profileUrl ?? '',
-                        fullName: fullNameController.text,
-                        age: AgeController.text,
-                        email: '',
-                        gender: genderController.text,
-                        uid: '',
-                        category: categoryController.text,
-                        hospitalName: hospitalNameController.text,
-                        location: locationController.text,
-                        isAccepted: false,
-                        consultationFee: consultationFeeController.text,
-                        yearsOfExperience: yearsOfExperienceController.text,
-                        certificateImage: '',
-                        availableDays: []);
-                    Get.to(
-                      () => DayPage(
-                        doctor: doctorModel,
-                      ),
-                      transition: Transition.rightToLeftWithFade,
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: Color(0xFF4A78FF),
+                          ),
+                        );
+                      },
                     );
+
+                    try {
+                      final String? profileUrl = await uploadImage(_image!);
+                      final doctorModel = Doctor(
+                          image: profileUrl ?? '',
+                          fullName: fullNameController.text,
+                          age: AgeController.text,
+                          email: '',
+                          gender: genderController.text,
+                          uid: '',
+                          category: categoryController.text,
+                          hospitalName: hospitalNameController.text,
+                          location: locationController.text,
+                          isAccepted: false,
+                          consultationFee: consultationFeeController.text,
+                          yearsOfExperience: yearsOfExperienceController.text,
+                          certificateImage: '',
+                          availableDays: []);
+
+                      Navigator.pop(context);
+
+                      Get.to(
+                        () => DayPage(
+                          doctor: doctorModel,
+                        ),
+                        transition: Transition.rightToLeftWithFade,
+                      );
+                    } catch (error) {
+                      Navigator.pop(context);
+
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('An error occurred: $error'),
+                        backgroundColor: Colors.red,
+                      ));
+                    }
                   }
                 }
               },

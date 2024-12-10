@@ -5,12 +5,14 @@ import 'package:cc_dr_side/views/screens/add_certificate_image.dart';
 
 class DayPage extends StatefulWidget {
   const DayPage({super.key, required this.doctor});
+
   final Doctor doctor;
   @override
   State<DayPage> createState() => _DayPageState();
 }
 
 class _DayPageState extends State<DayPage> {
+  bool isLoading = false;
   final Set<int> selectedDays = {};
   final List<String> weekDays = [
     'Mon',
@@ -238,7 +240,13 @@ class _DayPageState extends State<DayPage> {
                   ElevatedButton(
                     onPressed: selectedDays.isEmpty
                         ? null
-                        : () {
+                        : () async {
+                            setState(() {
+                              isLoading = true;
+                            });
+
+                            await Future.delayed(Duration(seconds: 2));
+
                             List<String> selected =
                                 selectedDays.map((n) => weekDays[n]).toList();
                             final doctorModel = Doctor(
@@ -258,6 +266,11 @@ class _DayPageState extends State<DayPage> {
                               certificateImage: '',
                               availableDays: selected,
                             );
+
+                            setState(() {
+                              isLoading = false;
+                            });
+
                             Get.to(
                               () => AddCertificateImage(doctor: doctorModel),
                               transition: Transition.rightToLeftWithFade,
@@ -273,18 +286,23 @@ class _DayPageState extends State<DayPage> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Next",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
+                    child: isLoading
+                        ? CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Next",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
                   ),
                 ],
               ),

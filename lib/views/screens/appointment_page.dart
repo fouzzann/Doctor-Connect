@@ -1,4 +1,6 @@
 import 'package:cc_dr_side/controllers/doctore_controller.dart';
+import 'package:cc_dr_side/views/widgets/home/appoinments/tapbar.dart';
+import 'package:cc_dr_side/views/widgets/home/appoinments/user_name_and_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,116 +15,30 @@ class AppointmentContent extends StatelessWidget {
 
     return Scaffold(
       body: Obx(() {
+        if (doctorController.isLoading.value) {
+          return const Center(
+              child: CircularProgressIndicator(color: Color(0xFF4A78FF)));
+        } else if (doctorController.hasError.value) {
+          return const Center(child: Text('Failed to load data.'));
+        }
+
         return Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    radius: 25,
-                    backgroundColor: Colors.blue,
-                    backgroundImage: doctorController.doctorImage.isNotEmpty
-                        ? NetworkImage(doctorController.doctorImage.value)
-                        : const AssetImage('assets/default_avatar.jpg')
-                            as ImageProvider,
-                  ),
-                  const SizedBox(width: 12),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Hey Dr',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      Text(
-                        doctorController.doctorName.value,
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            UserNameAndImage(),
             const SizedBox(height: 54),
             TabBarWidget(
-              selectedIndex: 0,
-              onTabTapped: (index) {},
+              selectedIndex: doctorController.selectedTabIndex.value,
+              onTabTapped: (index) {
+                doctorController.selectedTabIndex.value = index;
+              },
             ),
             const SizedBox(height: 20),
             Expanded(
-              child: ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                children: [
-                  const Text(
-                    'Upcoming Appointments',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
+              child: buildTabContent(doctorController.selectedTabIndex.value),
             ),
           ],
         );
       }),
-    );
-  }
-}
-
-class TabBarWidget extends StatelessWidget {
-  final int selectedIndex;
-  final Function(int) onTabTapped;
-
-  const TabBarWidget({
-    super.key,
-    required this.selectedIndex,
-    required this.onTabTapped,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        _buildTabItem(context, 0, "Upcoming"),
-        _buildTabItem(context, 1, "Completed"),
-        _buildTabItem(context, 2, "Canceled"),
-      ],
-    );
-  }
-
-  Widget _buildTabItem(BuildContext context, int index, String label) {
-    final isSelected = index == selectedIndex;
-    return GestureDetector(
-      onTap: () => onTabTapped(index),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 16,
-              color: isSelected ? Colors.blue : Colors.grey,
-              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-            ),
-          ),
-          if (isSelected)
-            Container(
-              margin: const EdgeInsets.only(top: 4),
-              height: 2,
-              width: 60,
-              color: Colors.blue,
-            ),
-        ],
-      ),
     );
   }
 }
