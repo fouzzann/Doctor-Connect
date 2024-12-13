@@ -1,4 +1,7 @@
+import 'package:cc_dr_side/controllers/appointment_controller.dart';
+import 'package:cc_dr_side/views/screens/upcoming_screens.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TabBarWidget extends StatelessWidget {
   final int selectedIndex;
@@ -12,6 +15,7 @@ class TabBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -49,15 +53,17 @@ class TabBarWidget extends StatelessWidget {
     );
   }
 }
- Widget buildTabContent(int selectedIndex) {
-    switch (selectedIndex) {
-      case 0:
-        return const Center(child: Text('Upcoming Appointments'));
-      case 1:
-        return const Center(child: Text('Completed Appointments'));
-      case 2:
-        return const Center(child: Text('Canceled Appointments'));
-      default:
-        return const Center(child: Text('Select a tab'));
-    }
+
+Widget buildTabContent(int selectedIndex) {
+  switch (selectedIndex) {
+    case 0:
+      return UpcomingScreens();
+    case 1:
+      return const Center(child: Text('Completed Appointments'));
+    case 2:
+      return const Center(child: Text('Canceled Appointments'));
+    default:
+      return const Center(child: Text('Select a tab'));
   }
+} 
+
