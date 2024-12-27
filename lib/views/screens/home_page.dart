@@ -1,5 +1,5 @@
 import 'package:cc_dr_side/views/screens/appointment_page.dart';
-import 'package:cc_dr_side/views/screens/messages_page.dart';
+import 'package:cc_dr_side/views/screens/messages/messages_page.dart';
 import 'package:cc_dr_side/views/screens/profile%20page/profile.dart';
 import 'package:cc_dr_side/views/utils/costum_widgets/bottom_navigation.dart';
 import 'package:flutter/material.dart';

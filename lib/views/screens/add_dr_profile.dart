@@ -108,10 +108,13 @@ class _AddDrProfileState extends State<AddDrProfile> {
                     ),
                     SizedBox(height: 30),
                     _buildTextField(fullNameController, 'Full Name',
-                        'Enter your full name'),
+                        'Enter your full name',
+                        keyboardType: TextInputType.name,
+                        textCapitalization: TextCapitalization.words),
                     SizedBox(height: 20),
                     _buildTextField(hospitalNameController, 'Hospital Name',
-                        'Enter your hospital name'),
+                        'Enter your hospital name',
+                        textCapitalization: TextCapitalization.words),
                     SizedBox(height: 20),
                     _buildTextField(AgeController, 'Age', 'Enter your Age',
                         keyboardType: TextInputType.number,
@@ -198,7 +201,8 @@ class _AddDrProfileState extends State<AddDrProfile> {
                         ]),
                     SizedBox(height: 20),
                     _buildTextField(
-                        locationController, 'Location', 'Enter your location'),
+                        locationController, 'Location', 'Enter your location',
+                        textCapitalization: TextCapitalization.words),
                   ],
                 ),
               ),
@@ -287,7 +291,8 @@ class _AddDrProfileState extends State<AddDrProfile> {
   Widget _buildTextField(
       TextEditingController controller, String labelText, String hintText,
       {TextInputType keyboardType = TextInputType.text,
-      List<TextInputFormatter>? inputFormatters}) {
+      List<TextInputFormatter>? inputFormatters,
+      TextCapitalization textCapitalization = TextCapitalization.none}) {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
@@ -299,6 +304,7 @@ class _AddDrProfileState extends State<AddDrProfile> {
       ),
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
+      textCapitalization: textCapitalization,  // Ensure text is capitalized
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please enter your $labelText';
@@ -339,3 +345,4 @@ class _AddDrProfileState extends State<AddDrProfile> {
     );
   }
 }
+ 

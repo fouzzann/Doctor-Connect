@@ -1,5 +1,6 @@
 import 'package:cc_dr_side/firebase_options.dart';
 import 'package:cc_dr_side/views/screens/splash_screen.dart';
+import 'package:cc_dr_side/views/utils/colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        scaffoldBackgroundColor: Colors.white
       ),
       home:SplashScreen()
     );
