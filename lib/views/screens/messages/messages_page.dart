@@ -44,19 +44,17 @@ class MessagePage extends StatelessWidget {
                 color: Color(0xFF1A1F36),
               ),
             ),
-            
           ],
         ),
         centerTitle: true,
         actions: [
           Container(
             margin: const EdgeInsets.only(right: 8),
-            
           ),
         ],
       ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: FirebaseFirestore.instance 
+        stream: FirebaseFirestore.instance
             .collection('chatRooms')
             .where('drId', isEqualTo: _auth.currentUser!.uid)
             .snapshots(),
@@ -143,14 +141,25 @@ class _MessageTile extends StatelessWidget {
       future: FirebaseFirestore.instance
           .collection('users')
           .where('uid', isEqualTo: data['userId'])
-          .limit(1)
+          .limit(1) 
           .get(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) return const SizedBox();
-        
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              child: CircularProgressIndicator(color:  Color(0xFF4A78FF),),
+            ),
+          );
+        }
+
+        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          return const SizedBox();
+        }
+
         final user = snapshot.data!.docs.first;
         final time = (data['lastMessageTime'] as Timestamp?)?.toDate() ?? DateTime.now();
-        
+
         return Container(
           margin: const EdgeInsets.only(bottom: 8),
           decoration: BoxDecoration(
@@ -234,8 +243,8 @@ class _MessageTile extends StatelessWidget {
               ),
             ),
           ),
-        ); 
+        );
       },
     );
   }
-}  
+}
