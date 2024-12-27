@@ -47,11 +47,6 @@ class MessagePage extends StatelessWidget {
           ],
         ),
         centerTitle: true,
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 8),
-          ),
-        ],
       ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
@@ -141,14 +136,14 @@ class _MessageTile extends StatelessWidget {
       future: FirebaseFirestore.instance
           .collection('users')
           .where('uid', isEqualTo: data['userId'])
-          .limit(1) 
+          .limit(1)
           .get(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 16),
-              child: CircularProgressIndicator(color:  Color(0xFF4A78FF),),
+              child: CircularProgressIndicator(color: Color(0xFF4A78FF)),
             ),
           );
         }
@@ -178,7 +173,11 @@ class _MessageTile extends StatelessWidget {
             child: InkWell(
               borderRadius: BorderRadius.circular(16),
               onTap: () => Get.to(
-                () => ChatScreen(userId: data['userId']),
+                () => ChatScreen(
+                  userId: data['userId'],
+                  userName: user['name'],
+                  userImage: user['image'],
+                ),
                 transition: Transition.rightToLeftWithFade,
               ),
               child: Padding(

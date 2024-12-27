@@ -4,6 +4,7 @@ import 'package:cc_dr_side/controllers/appointment_controller.dart';
 import 'package:cc_dr_side/model/appointment.dart';
 import 'package:cc_dr_side/views/screens/patient_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -65,27 +66,65 @@ class _UpcomingScreensState extends State<UpcomingScreens> {
                   children: [
                     Row(
                       children: [
-                        Container(
-                          width: 80,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.asset(
-                              'assets/Donex Fiance.webp',
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return const Icon(
-                                  Icons.person,
-                                  size: 40,
-                                  color: Colors.grey,
-                                );
-                              },
-                            ),
-                          ),
+                        
+                        FutureBuilder<DocumentSnapshot>(
+                          future: FirebaseFirestore.instance 
+                              .collection('users')
+                              .doc(appointment.userEmail) 
+                              .get(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return Container(
+                                width: 80,
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: const Center(child: CircularProgressIndicator()),
+                              );
+                            }
+
+                            if (snapshot.hasError || !snapshot.hasData) {
+                              return const Icon(
+                                Icons.person,
+                                size: 40,
+                                color: Colors.grey,
+                              );
+                            }
+
+                            final user = snapshot.data!;
+                            final imageUrl = user['image']; // Assuming image field exists
+
+                            return Container(
+                              width: 80,
+                              height: 80,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: imageUrl != null && imageUrl.isNotEmpty
+                                    ? Image.network(
+                                        imageUrl,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (context, error, stackTrace) {
+                                          return const Icon(
+                                            Icons.person,
+                                            size: 40,
+                                            color: Colors.grey,
+                                          );
+                                        },
+                                      )
+                                    : const Icon(
+                                        Icons.person,
+                                        size: 40,
+                                        color: Colors.grey,
+                                      ),
+                              ),
+                            );
+                          },
                         ),
                         const SizedBox(width: 16),
                         Expanded(
@@ -229,4 +268,3 @@ class _UpcomingScreensState extends State<UpcomingScreens> {
     );
   }
 }
- 
