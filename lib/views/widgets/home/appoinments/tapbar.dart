@@ -1,3 +1,4 @@
+import 'package:cc_dr_side/views/screens/completed_appointmets_screen.dart';
 import 'package:cc_dr_side/views/screens/upcoming_screens.dart';
 import 'package:flutter/material.dart';
 
@@ -55,7 +56,7 @@ Widget buildTabContent(int selectedIndex) {
     case 0:
       return UpcomingScreens();
     case 1:
-      return const Center(child: Text('Completed Appointments'));
+      return CompletedAppointment(); 
     default:
       return const Center(child: Text('Select a tab'));
   }

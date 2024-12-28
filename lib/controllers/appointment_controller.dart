@@ -24,4 +24,5 @@ class AppointmentController extends GetxController {
       log(e.toString());
     }
   }
+  
 }

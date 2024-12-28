@@ -35,7 +35,7 @@ class UserNameAndImage extends StatelessWidget {
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
-              ),
+              ), 
             ],
           ),
         ],

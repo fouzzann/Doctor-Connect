@@ -7,11 +7,16 @@ class DoctorController extends GetxController {
   var doctorImage = ''.obs;
   var doctorCategory = ''.obs;
   var userEmail = ''.obs;
-
+  var age = ''.obs;
+  var certificateImage = ''.obs;
+  var yearsOfExperience = ''.obs;
+  var hospitalName = ''.obs;
   var isLoading = false.obs;
   var hasError = false.obs;
   var selectedTabIndex = 0.obs;
-
+  var consultationFee = ''.obs;
+  var location = ''.obs;
+  var availableDays = ''.obs;
   Future<void> fetchDoctorData() async {
     try {
       isLoading.value = true;
@@ -33,6 +38,13 @@ class DoctorController extends GetxController {
           doctorName.value = doctorData['fullName'] ?? 'Dr. Unknown';
           doctorImage.value = doctorData['image'] ?? '';
           doctorCategory.value = doctorData['category'] ?? '';
+          age.value = doctorData['age'];
+          yearsOfExperience.value = doctorData['yearsOfExperience'];
+          hospitalName.value = doctorData['hospitalName'];
+          certificateImage.value = doctorData['certificateImage'];
+          consultationFee.value = doctorData['consultationFee'];
+          availableDays.value = doctorData['availableDays'];
+          location.value = doctorData['location'];
         } else {
           print('No doctor found with the email: ${userEmail.value}');
         }

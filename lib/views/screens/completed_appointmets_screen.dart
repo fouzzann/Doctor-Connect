@@ -9,14 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class UpcomingScreens extends StatefulWidget {
-  const UpcomingScreens({super.key});
+class CompletedAppointment extends StatefulWidget {
+  const CompletedAppointment({super.key});
 
   @override
-  State<UpcomingScreens> createState() => _UpcomingScreensState();
+  State<CompletedAppointment> createState() => _CompletedAppointmentState();
 }
 
-class _UpcomingScreensState extends State<UpcomingScreens> {
+class _CompletedAppointmentState extends State<CompletedAppointment> {
   final AppointmentController appointmentController =
       Get.put(AppointmentController());
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -25,7 +25,7 @@ class _UpcomingScreensState extends State<UpcomingScreens> {
   void initState() {
     Future.delayed(Duration.zero, () async {
       await appointmentController.getUpcomingAppointment(
-        'upcoming',
+        'completed',
         _auth.currentUser!.email.toString(),
       );
       log(_auth.currentUser!.email.toString());
@@ -37,40 +37,37 @@ class _UpcomingScreensState extends State<UpcomingScreens> {
   Widget build(BuildContext context) {
     return Obx(() {
       if (appointmentController.appointmentlist.isEmpty) {
-        // Show a message when there are no appointments
         return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(
+              Icon(
                 Icons.calendar_today_outlined,
-                size: 80,
-                color: Colors.grey,
+                size: 64,
+                color: Colors.grey[400],
               ),
               const SizedBox(height: 16),
               Text(
-                'No Upcoming Appointments',
+                'No Completed Appointments',
                 style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                   color: Colors.grey[600],
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
                 ),
               ),
               const SizedBox(height: 8),
               Text(
-                'Check back later or add new appointments.',
+                'Your completed appointments will appear here',
                 style: TextStyle(
-                  color: Colors.grey[500],
                   fontSize: 14,
+                  color: Colors.grey[500],
                 ),
-                textAlign: TextAlign.center,
               ),
             ],
           ),
         );
       }
 
-      // Display the list when appointments are available
       return ListView.builder(
         padding: const EdgeInsets.all(20),
         itemCount: appointmentController.appointmentlist.length,
@@ -220,60 +217,6 @@ class _UpcomingScreensState extends State<UpcomingScreens> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextButton(
-                            onPressed: () {},
-                            style: TextButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                side: BorderSide(color: Colors.grey.shade300),
-                              ),
-                            ),
-                            child: Text(
-                              'Message',
-                              style: TextStyle(
-                                color: Colors.grey[700],
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              await FirebaseFirestore.instance
-                                  .collection('appointment')
-                                  .doc(appointment.id)
-                                  .update({'status': 'completed'});
-                              await appointmentController
-                                  .getUpcomingAppointment(
-                                'upcoming',
-                                _auth.currentUser!.email.toString(),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFF4A78FF),
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            child: const Text(
-                              'Completed',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                   ],
                 ),
               ),
@@ -303,7 +246,7 @@ class _UpcomingScreensState extends State<UpcomingScreens> {
             ),
           ),
           const SizedBox(height: 4),
-          Text(
+          Text( 
             value,
             style: const TextStyle(
               color: Color(0xFF1E293B),

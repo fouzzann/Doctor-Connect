@@ -1,5 +1,7 @@
-  import 'package:flutter/material.dart';
+  import 'package:cc_dr_side/views/screens/upcoming_screens.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:get/get.dart';
 
 Widget buildProfileActions() {
     return Padding(
@@ -11,7 +13,8 @@ Widget buildProfileActions() {
             icon: Icons.calendar_today,
             label: 'Appointments',
             onTap: () {
-              // TODO: Navigate to appointments
+              Get.to(()=>UpcomingScreens(), 
+              transition: Transition.rightToLeftWithFade);
             },
           ),
           _buildActionButton(

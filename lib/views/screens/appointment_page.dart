@@ -15,12 +15,7 @@ class AppointmentContent extends StatelessWidget {
 
     return Scaffold(
       body: Obx(() {
-        if (doctorController.isLoading.value) {
-          return const Center(
-              child: CircularProgressIndicator(color: Color(0xFF4A78FF)));
-        } else if (doctorController.hasError.value) {
-          return const Center(child: Text('Failed to load data.'));
-        }
+        
 
         return Column(
           children: [
