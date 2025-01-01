@@ -1,5 +1,5 @@
-import 'package:cc_dr_side/views/widgets/dr_details_page/detailed_Information.dart';
-import 'package:cc_dr_side/views/widgets/dr_details_page/profile_Image_and_basic_Info.dart';
+import 'package:cc_dr_side/views/widgets/dr_account_details_page/detailed_Information.dart';
+import 'package:cc_dr_side/views/widgets/dr_account_details_page/profile_Image_and_basic_Info.dart';
 import 'package:flutter/material.dart';
 import 'package:cc_dr_side/model/dr_model.dart';
 import 'package:get/get.dart';
