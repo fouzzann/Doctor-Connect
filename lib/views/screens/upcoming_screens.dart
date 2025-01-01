@@ -222,25 +222,6 @@ class _UpcomingScreensState extends State<UpcomingScreens> {
                     const SizedBox(height: 20),
                     Row(
                       children: [
-                        Expanded(
-                          child: TextButton(
-                            onPressed: () {},
-                            style: TextButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                side: BorderSide(color: Colors.grey.shade300),
-                              ),
-                            ),
-                            child: Text(
-                              'Message',
-                              style: TextStyle(
-                                color: Colors.grey[700],
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
                         const SizedBox(width: 16),
                         Expanded(
                           child: ElevatedButton(

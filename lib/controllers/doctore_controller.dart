@@ -16,7 +16,15 @@ class DoctorController extends GetxController {
   var selectedTabIndex = 0.obs;
   var consultationFee = ''.obs;
   var location = ''.obs;
-  var availableDays = ''.obs;
+  var availableDays = <String>[].obs;
+  var Drgender = ''.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchDoctorData();
+  }
+
   Future<void> fetchDoctorData() async {
     try {
       isLoading.value = true;
@@ -35,19 +43,29 @@ class DoctorController extends GetxController {
         if (querySnapshot.docs.isNotEmpty) {
           final doctorData = querySnapshot.docs.first.data();
           print('Doctor data fetched: $doctorData');
+
           doctorName.value = doctorData['fullName'] ?? 'Dr. Unknown';
           doctorImage.value = doctorData['image'] ?? '';
           doctorCategory.value = doctorData['category'] ?? '';
-          age.value = doctorData['age'];
-          yearsOfExperience.value = doctorData['yearsOfExperience'];
-          hospitalName.value = doctorData['hospitalName'];
-          certificateImage.value = doctorData['certificateImage'];
-          consultationFee.value = doctorData['consultationFee'];
-          availableDays.value = doctorData['availableDays'];
-          location.value = doctorData['location'];
+          age.value = doctorData['age'] ?? '';
+          yearsOfExperience.value = doctorData['yearsOfExperience'] ?? '';
+          hospitalName.value = doctorData['hospitalName'] ?? '';
+          certificateImage.value = doctorData['certificateImage'] ?? '';
+          consultationFee.value = doctorData['consultationFee'] ?? '';
+          location.value = doctorData['location'] ?? '';
+          Drgender.value = doctorData['gender'] ?? '';
+          if (doctorData['availableDays'] != null) {
+            if (doctorData['availableDays'] is List) {
+              availableDays.value = List<String>.from(doctorData['availableDays']);
+            } else if (doctorData['availableDays'] is String) {
+              availableDays.value = doctorData['availableDays'].split(',');
+            }
+          } else {
+            availableDays.value = [];
+          }
         } else {
           print('No doctor found with the email: ${userEmail.value}');
-        }
+        } 
       } else {
         print('No user is currently logged in');
       }

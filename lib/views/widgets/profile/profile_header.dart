@@ -71,7 +71,7 @@ Widget buildProfileHeader(BuildContext context) {
             icon: Icon(Icons.edit, color: Color(0xFF4A78FF)),
             onPressed: () {
               final Doctor doctor = Doctor(
-                  image: doctorController.doctorImage.value,
+                  image: doctorController.doctorImage.value, 
                   fullName: doctorController.doctorName.value,
                   age: doctorController.age.value,
                   email: FirebaseAuth.instance.currentUser!.email.toString(),

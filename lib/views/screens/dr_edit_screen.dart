@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:cc_dr_side/functions/upload_image_s3bucket.dart';
 import 'package:cc_dr_side/model/dr_model.dart';
 import 'package:cc_dr_side/views/screens/is_accepted_by_the_admin.dart';
@@ -33,7 +32,7 @@ class _DrEditScreenState extends State<DrEditScreen> {
   late TextEditingController consultationFeeController;
   late TextEditingController locationController;
   late TextEditingController availableDaysController;
-
+  
   final List<String> weekDays = [
     'Mon',
     'Tue',
@@ -56,16 +55,15 @@ class _DrEditScreenState extends State<DrEditScreen> {
         TextEditingController(text: widget.doctor.hospitalName);
     consultationFeeController =
         TextEditingController(text: widget.doctor.consultationFee);
-    availableDaysController = TextEditingController(
-        text: widget.doctor.availableDays.toList().toString());
     locationController = TextEditingController(text: widget.doctor.location);
-
     selectedDays = List<String>.from(widget.doctor.availableDays);
+    availableDaysController = TextEditingController(
+        text: selectedDays.isEmpty ? '' : selectedDays.join(', '));
     super.initState();
   }
 
   void _updateAvailableDays() {
-    availableDaysController.text = selectedDays.join(', ');
+    availableDaysController.text = selectedDays.isEmpty ? '' : selectedDays.join(', ');
   }
 
   @override
@@ -127,10 +125,11 @@ class _DrEditScreenState extends State<DrEditScreen> {
               ),
               const SizedBox(height: 24),
               Card(
+                color: Colors.white,
                 elevation: 2,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
-                ),
+                ), 
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -239,7 +238,7 @@ class _DrEditScreenState extends State<DrEditScreen> {
                   return null;
                 },
               ),
-              const SizedBox(height: 16),
+               SizedBox(height: 16),
               TextFormField(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: hospitalNameController,
@@ -285,8 +284,7 @@ class _DrEditScreenState extends State<DrEditScreen> {
                 },
               ),
               const SizedBox(height: 16),
-              TextFormField(
-                
+              TextFormField(             
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: locationController,
                 decoration: InputDecoration(
@@ -404,7 +402,7 @@ class _DrEditScreenState extends State<DrEditScreen> {
                     ),
                     elevation: 2,
                   ),
-                  child: const Text(
+                  child: Text(
                     'Save Changes',
                     style: TextStyle(
                       fontSize: 16,
@@ -413,10 +411,10 @@ class _DrEditScreenState extends State<DrEditScreen> {
                   ),
                 ),
               ),
-            ], 
+            ],
           ),
         ),
-      ), 
+      ),
     );
   }
-}
+} 

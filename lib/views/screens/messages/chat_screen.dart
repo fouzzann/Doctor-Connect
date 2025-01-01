@@ -69,7 +69,7 @@ class _ChatScreenState extends State<ChatScreen> {
           SizedBox(
             width: 10, 
           )
-        ],
+        ], 
         centerTitle: false,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
