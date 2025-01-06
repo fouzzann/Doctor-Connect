@@ -1,6 +1,6 @@
-import 'package:cc_dr_side/controllers/doctore_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:cc_dr_side/controllers/doctore_controller.dart';
 
 class UserNameAndImage extends StatelessWidget {
   const UserNameAndImage({super.key});
@@ -8,45 +8,77 @@ class UserNameAndImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DoctorController doctorController = Get.put(DoctorController());
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Row(
         children: [
-          CircleAvatar(
-            radius: 25,
-            backgroundColor: Colors.blue,
-            backgroundImage:
-                _getAvatarImage(doctorController.doctorImage.value),
-          ),
+          Obx(() => CircleAvatar(
+                radius: 25,
+                backgroundColor: Colors.blue,
+                child: _buildAvatarContent(doctorController.doctorImage.value),
+              )),
           const SizedBox(width: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Hey Dr',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Hey Dr',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey,
+                  ),
                 ),
-              ),
-              Text(
-                doctorController.doctorName.value,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ), 
-            ],
+                Obx(() => Text(
+                      doctorController.doctorName.value,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    )),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
-}
 
-ImageProvider _getAvatarImage(String url) {
-  if (url.isNotEmpty) {
-    return NetworkImage(url);
+  Widget _buildAvatarContent(String imageUrl) {
+    if (imageUrl.isEmpty) {
+      // Return a fallback icon when no image URL is provided
+      return const Icon(
+        Icons.person,
+        size: 30,
+        color: Colors.white,
+      );
+    }
+
+    return ClipOval(
+      child: Image.network(
+        imageUrl,
+        width: 50,
+        height: 50,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          // Return a fallback icon when image loading fails
+          return const Icon(
+            Icons.person,
+            size: 30,
+            color: Colors.white,
+          );
+        },
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          );
+        },
+      ),
+    );
   }
-  return const AssetImage('assets/default_avatar.jpg');
 }

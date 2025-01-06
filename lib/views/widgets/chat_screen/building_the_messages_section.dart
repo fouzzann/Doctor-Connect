@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
+
 Widget buildMessages(Stream<QuerySnapshot<Map<String, dynamic>>> stream) {
   return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
     stream: stream,
@@ -46,6 +48,8 @@ Widget buildMessages(Stream<QuerySnapshot<Map<String, dynamic>>> stream) {
       }
 
       final listMessages = snapshot.data!.docs;
+      String? currentDate;
+
       return ListView.builder(
         reverse: true,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -53,16 +57,56 @@ Widget buildMessages(Stream<QuerySnapshot<Map<String, dynamic>>> stream) {
         itemBuilder: (context, index) {
           final message = listMessages[index];
           final bool isMe = message['senderId'] == _auth.currentUser!.uid;
+          
+          // Safely handle timestamp
+          final timestamp = message['timestamp'];
+          if (timestamp == null) {
+            return buildMessageWithoutDate(message, isMe);
+          }
 
-          return Align(
-            alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
-            child: Column(
-              crossAxisAlignment:
-                  isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-              children: [
-                buildMessageBubble(message, isMe),
-              ],
-            ),
+          // Get message date
+          final messageDate = (timestamp as Timestamp).toDate();
+          final formattedDate = DateFormat('MMMM d, y').format(messageDate);
+          
+          // Check if we need to show a date header
+          Widget? dateHeader;
+          if (currentDate != formattedDate) {
+            currentDate = formattedDate;
+            dateHeader = Container(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              alignment: Alignment.center,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  formattedDate,
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            );
+          }
+
+          return Column(
+            children: [
+              if (dateHeader != null) dateHeader,
+              Align(
+                alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+                child: Column(
+                  crossAxisAlignment:
+                      isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                  children: [
+                    buildMessageBubble(message, isMe),
+                  ],
+                ),
+              ),
+            ],
           );
         },
       );
@@ -70,8 +114,28 @@ Widget buildMessages(Stream<QuerySnapshot<Map<String, dynamic>>> stream) {
   );
 }
 
-// Message bubble widget
+Widget buildMessageWithoutDate(DocumentSnapshot message, bool isMe) {
+  return Align(
+    alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+    child: Column(
+      crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+      children: [
+        buildMessageBubble(message, isMe),
+      ],
+    ),
+  );
+}
+
 Widget buildMessageBubble(DocumentSnapshot message, bool isMe) {
+  String timeText = 'sending..';
+  
+  // Safely handle timestamp
+  final timestamp = message['timestamp'];
+  if (timestamp != null) {
+    final messageDate = (timestamp as Timestamp).toDate();
+    timeText = DateFormat('HH:mm').format(messageDate);
+  }
+  
   return Container(
     margin: EdgeInsets.only(
       bottom: 4,
@@ -92,7 +156,7 @@ Widget buildMessageBubble(DocumentSnapshot message, bool isMe) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          message['message'],
+          message['message'] ?? '',
           style: TextStyle(
             fontSize: 15,
             color: isMe ? Colors.white : Colors.black87,
@@ -100,14 +164,7 @@ Widget buildMessageBubble(DocumentSnapshot message, bool isMe) {
         ),
         const SizedBox(height: 4),
         Text(
-          message['timestamp'] != null
-              ? (message['timestamp'] as Timestamp)
-                  .toDate()
-                  .toLocal()
-                  .toString()
-                  .split(' ')[1]
-                  .substring(0, 5)
-              : 'sending..',
+          timeText,
           style: TextStyle(
             fontSize: 10,
             color: isMe ? Colors.white70 : Colors.grey[600],
