@@ -1,6 +1,5 @@
 import 'package:cc_dr_side/views/widgets/chat_screen/building_the_message_input_section.dart';
 import 'package:cc_dr_side/views/widgets/chat_screen/building_the_messages_section.dart';
-import 'package:cc_dr_side/views/widgets/chat_screen/call_buttons.dart';
 import 'package:cc_dr_side/views/widgets/chat_screen/header.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -50,7 +49,7 @@ class _ChatScreenState extends State<ChatScreen> {
           onPressed: () => Get.back(),
         ),
         title: Header(userImage: widget.userImage, userName: widget.userName),
-        actions: [CallButtons()],
+        actions: [],
         centerTitle: false,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,

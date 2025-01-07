@@ -28,6 +28,7 @@ class _AddDrProfileState extends State<AddDrProfile> {
   final TextEditingController consultationFeeController =
       TextEditingController();
   final TextEditingController locationController = TextEditingController();
+  final TextEditingController mobileNumberController = TextEditingController();
 
   Future<void> _pickImage() async {
     try {
@@ -41,6 +42,12 @@ class _AddDrProfileState extends State<AddDrProfile> {
     } catch (e) {
       log(e.toString());
     }
+  }
+
+  bool _isValidMobile(String value) {
+    // Regular expression to validate mobile number (e.g., +91 9876543210)
+    RegExp regExp = RegExp(r"^\+?[0-9]{10,15}$");
+    return regExp.hasMatch(value);
   }
 
   @override
@@ -107,8 +114,8 @@ class _AddDrProfileState extends State<AddDrProfile> {
                       ),
                     ),
                     SizedBox(height: 30),
-                    _buildTextField(fullNameController, 'Full Name',
-                        'Enter your full name',
+                    _buildTextField(
+                        fullNameController, 'Full Name', 'Enter your full name',
                         keyboardType: TextInputType.name,
                         textCapitalization: TextCapitalization.words),
                     SizedBox(height: 20),
@@ -203,6 +210,24 @@ class _AddDrProfileState extends State<AddDrProfile> {
                     _buildTextField(
                         locationController, 'Location', 'Enter your location',
                         textCapitalization: TextCapitalization.words),
+                    SizedBox(height: 20),
+                    _buildTextField(mobileNumberController, 'Mobile Number',
+                        'Enter your mobile number',
+                        keyboardType: TextInputType.phone,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(
+                              10)
+                        ], validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your mobile number';
+                      }
+                      if (value.length != 10) {
+            
+                        return 'Mobile number must be 10 digits';
+                      }
+                      return null;
+                    }),
                   ],
                 ),
               ),
@@ -236,6 +261,7 @@ class _AddDrProfileState extends State<AddDrProfile> {
                     try {
                       final String? profileUrl = await uploadImage(_image!);
                       final doctorModel = Doctor(
+                          contact: mobileNumberController.text,
                           image: profileUrl ?? '',
                           fullName: fullNameController.text,
                           age: AgeController.text,
@@ -292,7 +318,8 @@ class _AddDrProfileState extends State<AddDrProfile> {
       TextEditingController controller, String labelText, String hintText,
       {TextInputType keyboardType = TextInputType.text,
       List<TextInputFormatter>? inputFormatters,
-      TextCapitalization textCapitalization = TextCapitalization.none}) {
+      TextCapitalization textCapitalization = TextCapitalization.none,
+      String? Function(String?)? validator}) {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
@@ -304,13 +331,14 @@ class _AddDrProfileState extends State<AddDrProfile> {
       ),
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
-      textCapitalization: textCapitalization,  // Ensure text is capitalized
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter your $labelText';
-        }
-        return null;
-      },
+      textCapitalization: textCapitalization,
+      validator: validator ??
+          (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter your $labelText';
+            }
+            return null;
+          },
     );
   }
 
@@ -345,4 +373,3 @@ class _AddDrProfileState extends State<AddDrProfile> {
     );
   }
 }
- 

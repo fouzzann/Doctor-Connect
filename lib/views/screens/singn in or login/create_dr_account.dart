@@ -41,6 +41,7 @@ class _CreateDrAccountState extends State<CreateDrAccount> {
           await authentication.googleSignOut();
         } else {
           final fullDoctorData = Doctor(
+            contact: widget.doctor.contact,
             image: widget.doctor.image,
             fullName: widget.doctor.fullName,
             age: widget.doctor.age,

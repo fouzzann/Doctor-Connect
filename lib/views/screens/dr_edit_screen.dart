@@ -5,6 +5,7 @@ import 'package:cc_dr_side/model/dr_model.dart';
 import 'package:cc_dr_side/views/screens/is_accepted_by_the_admin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -32,7 +33,8 @@ class _DrEditScreenState extends State<DrEditScreen> {
   late TextEditingController consultationFeeController;
   late TextEditingController locationController;
   late TextEditingController availableDaysController;
-  
+  late TextEditingController contactController;
+
   final List<String> weekDays = [
     'Mon',
     'Tue',
@@ -59,11 +61,13 @@ class _DrEditScreenState extends State<DrEditScreen> {
     selectedDays = List<String>.from(widget.doctor.availableDays);
     availableDaysController = TextEditingController(
         text: selectedDays.isEmpty ? '' : selectedDays.join(', '));
+    contactController = TextEditingController(text: widget.doctor.contact);
     super.initState();
   }
 
   void _updateAvailableDays() {
-    availableDaysController.text = selectedDays.isEmpty ? '' : selectedDays.join(', ');
+    availableDaysController.text =
+        selectedDays.isEmpty ? '' : selectedDays.join(', ');
   }
 
   @override
@@ -129,7 +133,7 @@ class _DrEditScreenState extends State<DrEditScreen> {
                 elevation: 2,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
-                ), 
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -238,7 +242,7 @@ class _DrEditScreenState extends State<DrEditScreen> {
                   return null;
                 },
               ),
-               SizedBox(height: 16),
+              SizedBox(height: 16),
               TextFormField(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: hospitalNameController,
@@ -284,7 +288,7 @@ class _DrEditScreenState extends State<DrEditScreen> {
                 },
               ),
               const SizedBox(height: 16),
-              TextFormField(             
+              TextFormField(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: locationController,
                 decoration: InputDecoration(
@@ -298,9 +302,39 @@ class _DrEditScreenState extends State<DrEditScreen> {
                   ),
                   prefixIcon: Icon(Icons.location_on, color: primaryColor),
                 ),
-                validator: (value) { 
+                validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter location';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                controller: contactController,
+                decoration: InputDecoration(
+                  labelText: 'Contact',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: primaryColor, width: 2),
+                  ),
+                  prefixIcon: Icon(Icons.phone, color: primaryColor),
+                ),
+                keyboardType: TextInputType.phone,
+                maxLength: 10, // Maximum of 10 digits
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly, // Allow only digits
+                ],
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter contact';
+                  }
+                  if (value.length != 10) {
+                    return 'Please enter a valid 10-digit contact number';
                   }
                   return null;
                 },
@@ -308,7 +342,7 @@ class _DrEditScreenState extends State<DrEditScreen> {
               const SizedBox(height: 24),
               Text(
                 'Select Your Available Days',
-                style: TextStyle( 
+                style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: primaryColor,
@@ -390,7 +424,8 @@ class _DrEditScreenState extends State<DrEditScreen> {
                       'image': doctorImageUrl,
                       'location': locationController.text,
                       'consultationFee': consultationFeeController.text,
-                      'availableDays': selectedDays
+                      'availableDays': selectedDays,
+                      'contact': contactController.text
                     });
                     Get.offAll(() => IsAcceptedByTheAdmin());
                   },
@@ -417,4 +452,4 @@ class _DrEditScreenState extends State<DrEditScreen> {
       ),
     );
   }
-} 
+}

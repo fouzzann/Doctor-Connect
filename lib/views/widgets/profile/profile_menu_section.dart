@@ -10,7 +10,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 
 Widget buildProfileMenuSection(BuildContext context) {
-  final Authentication authentication = Authentication(); // Initialize Authentication service
+  final Authentication authentication =
+      Authentication(); // Initialize Authentication service
   final DoctorController doctorController = Get.put(DoctorController());
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 16),
@@ -24,33 +25,35 @@ Widget buildProfileMenuSection(BuildContext context) {
           offset: Offset(0, 10),
         ),
       ],
-    ), 
+    ),
     child: Column(
       children: [
         _buildMenuItem(
           icon: Icons.person_outline,
           title: 'Account Details',
           onTap: () {
-                       final Doctor doctor = Doctor(
-                  image: doctorController.doctorImage.value, 
-                  fullName: doctorController.doctorName.value,
-                  age: doctorController.age.value,
-                  email: FirebaseAuth.instance.currentUser!.email.toString(),
-                  gender: doctorController.Drgender.value, 
-                  uid: 'uid',
-                  category: doctorController.doctorCategory.value,
-                  hospitalName: doctorController.hospitalName.value,
-                  location: doctorController.location.value, 
-                  isAccepted: true,
-                  consultationFee: doctorController.consultationFee.value.toString(), 
-                  yearsOfExperience: doctorController.yearsOfExperience.value,
-                  certificateImage: doctorController.certificateImage.value,
-                  availableDays: []);
-              Get.to(
-                  () => AccountDetailsPage(
-                        doctor: doctor,
-                      ),
-                  transition: Transition.rightToLeftWithFade);
+            final Doctor doctor = Doctor(
+                contact: doctorController.contact.value,
+                image: doctorController.doctorImage.value,
+                fullName: doctorController.doctorName.value,
+                age: doctorController.age.value,
+                email: FirebaseAuth.instance.currentUser!.email.toString(),
+                gender: doctorController.Drgender.value,
+                uid: 'uid',
+                category: doctorController.doctorCategory.value,
+                hospitalName: doctorController.hospitalName.value,
+                location: doctorController.location.value,
+                isAccepted: true,
+                consultationFee:
+                    doctorController.consultationFee.value.toString(),
+                yearsOfExperience: doctorController.yearsOfExperience.value,
+                certificateImage: doctorController.certificateImage.value,
+                availableDays: []);
+            Get.to(
+                () => AccountDetailsPage(
+                      doctor: doctor,
+                    ),
+                transition: Transition.rightToLeftWithFade);
           },
         ),
         _buildDivider(),
@@ -72,7 +75,8 @@ Widget buildProfileMenuSection(BuildContext context) {
           icon: Icons.logout,
           title: 'Logout',
           textColor: Colors.red,
-          onTap: () => _showLogoutDialog(context, authentication), // Pass authentication here
+          onTap: () => _showLogoutDialog(
+              context, authentication), // Pass authentication here
         ),
         _buildDivider(),
         Padding(
@@ -120,7 +124,7 @@ Widget _buildMenuItem({
 Widget _buildDivider() {
   return Divider(
     height: 1,
-    color: Colors.grey.shade200, 
+    color: Colors.grey.shade200,
     indent: 16,
     endIndent: 16,
   );

@@ -18,6 +18,7 @@ class DoctorController extends GetxController {
   var location = ''.obs;
   var availableDays = <String>[].obs;
   var Drgender = ''.obs;
+  var contact = ''.obs;
 
   @override
   void onInit() {
@@ -54,6 +55,7 @@ class DoctorController extends GetxController {
           consultationFee.value = doctorData['consultationFee'] ?? '';
           location.value = doctorData['location'] ?? '';
           Drgender.value = doctorData['gender'] ?? '';
+          contact.value = doctorData['contact'] ?? '';
           if (doctorData['availableDays'] != null) {
             if (doctorData['availableDays'] is List) {
               availableDays.value = List<String>.from(doctorData['availableDays']);
@@ -66,10 +68,10 @@ class DoctorController extends GetxController {
         } else {
           print('No doctor found with the email: ${userEmail.value}');
         } 
-      } else {
+      } else { 
         print('No user is currently logged in');
       }
-    } catch (e) {
+    } catch (e) { 
       hasError.value = true;
       print('Error fetching doctor data: $e');
     } finally {

@@ -250,6 +250,7 @@ class _DayPageState extends State<DayPage> {
                             List<String> selected =
                                 selectedDays.map((n) => weekDays[n]).toList();
                             final doctorModel = Doctor(
+                              contact: widget.doctor.contact,
                               image: widget.doctor.image,
                               fullName: widget.doctor.fullName,
                               age: widget.doctor.age,
