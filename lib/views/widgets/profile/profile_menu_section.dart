@@ -8,11 +8,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Widget buildProfileMenuSection(BuildContext context) {
   final Authentication authentication =
-      Authentication(); // Initialize Authentication service
+      Authentication(); 
   final DoctorController doctorController = Get.put(DoctorController());
+  
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 16),
     decoration: BoxDecoration(
@@ -66,8 +68,20 @@ Widget buildProfileMenuSection(BuildContext context) {
         _buildMenuItem(
           icon: Icons.help_outline,
           title: 'Help & Support',
-          onTap: () {
-            // TODO: Implement help support
+          onTap: () async {
+            const email = 'fouzanp.official@gmail.com';
+            const subject = 'Feedback for Your App';
+            const body = 'Enter your feedback here..';
+
+            final Uri emailLaunchUri = Uri(
+              scheme: 'mailto', 
+              path: email,
+              queryParameters: {
+                'subject': subject,
+                'body': body,
+              },
+            );
+            await launchUrl(emailLaunchUri);
           },
         ),
         _buildDivider(),

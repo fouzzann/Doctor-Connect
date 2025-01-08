@@ -18,7 +18,7 @@ class ProfilePage extends StatelessWidget {
           _buildAppBar(),
           SliverToBoxAdapter(
             child: Column(
-              children: [
+              children: [ 
                 buildProfileHeader(context),
                 const SizedBox(height: 20),            
                 const SizedBox(height: 20), 

@@ -54,6 +54,7 @@ dependencies:
   agora_rtc_engine: ^6.5.0
   photo_view: ^0.15.0
   intl_phone_number_input: ^0.7.4
+  url_launcher: ^6.3.1
  
 
 

@@ -1,9 +1,11 @@
 import 'dart:developer';
-
 import 'package:cc_dr_side/services/authentication/dr_service.dart';
 import 'package:cc_dr_side/views/screens/home_page.dart';
 import 'package:cc_dr_side/views/screens/is_accepted_by_the_admin.dart';
 import 'package:cc_dr_side/views/screens/login_or_register_doctor.dart';
+import 'package:cc_dr_side/views/widgets/splash_screen.dart/loading_indicater.dart';
+import 'package:cc_dr_side/views/widgets/splash_screen.dart/splash_logo.dart';
+import 'package:cc_dr_side/views/widgets/splash_screen.dart/splash_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,8 +17,7 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
@@ -49,8 +50,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     Future.delayed(const Duration(seconds: 4), () async {
       if (_auth.currentUser != null) {
-        final bool isAccepted = await DoctorService()
-            .CheckDrAccepted(_auth.currentUser!.email.toString());
+        final bool isAccepted = await DoctorService().CheckDrAccepted(_auth.currentUser!.email.toString());
         log(isAccepted.toString());
         if (isAccepted) {
           Get.offAll(() => HomePage());
@@ -89,85 +89,12 @@ class _SplashScreenState extends State<SplashScreen>
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Logo Section
-                Transform.scale(
-                  scale: _scaleAnimation.value,
-                  child: Container(
-                    width: 180,
-                    height: 180,
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          blurRadius: 20,
-                          spreadRadius: 5,
-                          offset: const Offset(0, 10),
-                        ),
-                      ],
-                    ),
-                    child: Image.asset(
-                      'assets/app_logo-removebg-preview.png',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
-
+                SplashLogo(scaleAnimation: _scaleAnimation),
                 const SizedBox(height: 40),
-
-                // App Name
-                Opacity(
-                  opacity: _fadeAnimation.value,
-                  child: const Text(
-                    'Doctor Connect',
-                    style: TextStyle(
-                      fontSize: 36,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      letterSpacing: 1.5,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 15),
-
-                // Tagline
-                Opacity(
-                  opacity: _fadeAnimation.value,
-                  child: const Text(
-                    'Healthcare at Your Fingertips',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white70,
-                      letterSpacing: 0.5,
-                    ),
-                  ),
-                ),
-
+                SplashText(fadeAnimation: _fadeAnimation),
                 const SizedBox(height: 50),
-
-                // Loading Indicator
-                Opacity(
-                  opacity: _fadeAnimation.value,
-                  child: Container(
-                    width: 45,
-                    height: 45,
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const CircularProgressIndicator(
-                      color: Colors.white,
-                      strokeWidth: 2.5,
-                    ),
-                  ),
-                ),
-
+                LoadingIndicator(fadeAnimation: _fadeAnimation),
                 const SizedBox(height: 20),
-
                 Opacity(
                   opacity: _fadeAnimation.value,
                   child: const Text(
