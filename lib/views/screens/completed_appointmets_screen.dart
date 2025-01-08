@@ -36,7 +36,7 @@ class _CompletedAppointmentState extends State<CompletedAppointment> {
       if (appointmentController.appointmentlist.isEmpty) {
         return const NoCompletedAppointments();
       }
-
+      // list view
       return ListView.builder(
         padding: const EdgeInsets.all(20),
         itemCount: appointmentController.appointmentlist.length,
