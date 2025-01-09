@@ -15,6 +15,8 @@ class Doctor {
   final String certificateImage;
   final List<String> availableDays;
   final String contact;
+   String? rating; 
+  List<int>? ratingList;
 
   Doctor(
       {required this.image,
@@ -32,7 +34,10 @@ class Doctor {
       required this.yearsOfExperience,
       required this.certificateImage,
       required this.availableDays,
-      required this.contact});
+      required this.contact,
+      this.ratingList,
+      this.rating
+      });
 
   Map<String, dynamic> toMap() {
     return {
@@ -51,7 +56,9 @@ class Doctor {
       'yearsOfExperience': yearsOfExperience,
       'certificateImage': certificateImage,
       'availableDays': availableDays,
-      'contact': contact
+      'rating': rating,
+      'contact': contact,
+      'ratingList': ratingList,
     };
   }
 
@@ -72,6 +79,10 @@ class Doctor {
         yearsOfExperience: map['yearsOfExperience'] ?? 0,
         certificateImage: map['certificateImage'] ?? '',
         availableDays: List<String>.from(map['availableDays']),
+        rating: map['rating'] ?? '0.0',
+         ratingList: List<int>.from(map['ratingList'] ?? []),
         contact: map['contact'] ?? '');
+        
   }
 }
+ 

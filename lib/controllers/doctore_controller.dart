@@ -19,6 +19,7 @@ class DoctorController extends GetxController {
   var availableDays = <String>[].obs;
   var Drgender = ''.obs;
   var contact = ''.obs;
+  var rating = ''.obs;
 
   @override
   void onInit() {
@@ -56,6 +57,7 @@ class DoctorController extends GetxController {
           location.value = doctorData['location'] ?? '';
           Drgender.value = doctorData['gender'] ?? '';
           contact.value = doctorData['contact'] ?? '';
+          rating.value = doctorData['rating'] ?? '';
           if (doctorData['availableDays'] != null) {
             if (doctorData['availableDays'] is List) {
               availableDays.value = List<String>.from(doctorData['availableDays']);

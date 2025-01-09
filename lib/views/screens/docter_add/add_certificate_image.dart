@@ -28,7 +28,8 @@ class _AddCertificateImageState extends State<AddCertificateImage> {
     setState(() {
       isLoading = true;
     });
-    final certificate = await uploadImage(authController.certificateImage.value!);
+    final certificate =
+        await uploadImage(authController.certificateImage.value!);
     if (certificate != null) {
       Get.to(
         () => CreateDrAccount(
@@ -71,7 +72,8 @@ class _AddCertificateImageState extends State<AddCertificateImage> {
             child: ElevatedButton(
               onPressed: _handleUpload,
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                 backgroundColor: const Color(0xFF4A78FF),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),

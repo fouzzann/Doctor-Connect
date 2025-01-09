@@ -81,6 +81,6 @@ class _UpcomingScreensState extends State<UpcomingScreens> {
         final AppointmentModel appointment = appointmentController.appointmentlist[index];
         return AppointmentCard(appointment: appointment);
       },
-    );
+    ); 
   }
 }
