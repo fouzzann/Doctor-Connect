@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:cc_dr_side/functions/upload_image_s3bucket.dart';
 import 'package:cc_dr_side/model/dr_model.dart';
-import 'package:cc_dr_side/views/screens/is_accepted_by_the_admin.dart';
+import 'package:cc_dr_side/views/screens/is_accepted_by_the_admin/is_accepted_by_the_admin.dart';
 import 'package:cc_dr_side/views/widgets/doctor_edit/available_days_selecter.dart';
 import 'package:cc_dr_side/views/widgets/doctor_edit/custom_form_field.dart';
 import 'package:flutter/material.dart';

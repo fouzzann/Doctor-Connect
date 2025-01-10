@@ -90,7 +90,7 @@ Widget buildProfileMenuSection(BuildContext context) {
           title: 'Logout',
           textColor: Colors.red,
           onTap: () => _showLogoutDialog(
-              context, authentication), // Pass authentication here
+              context, authentication), 
         ),
         _buildDivider(),
         Padding(

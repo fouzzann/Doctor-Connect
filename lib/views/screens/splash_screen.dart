@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:cc_dr_side/services/authentication/dr_service.dart';
 import 'package:cc_dr_side/views/screens/home_page.dart';
-import 'package:cc_dr_side/views/screens/is_accepted_by_the_admin.dart';
+import 'package:cc_dr_side/views/screens/is_accepted_by_the_admin/is_accepted_by_the_admin.dart';
 import 'package:cc_dr_side/views/screens/login_or_register_doctor.dart';
 import 'package:cc_dr_side/views/widgets/splash_screen.dart/loading_indicater.dart';
 import 'package:cc_dr_side/views/widgets/splash_screen.dart/splash_logo.dart';

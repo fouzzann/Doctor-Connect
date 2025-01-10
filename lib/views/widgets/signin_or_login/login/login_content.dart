@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cc_dr_side/services/authentication/authentication_service.dart';
 import 'package:cc_dr_side/views/screens/home_page.dart';
-import 'package:cc_dr_side/views/screens/is_accepted_by_the_admin.dart';
+import 'package:cc_dr_side/views/screens/is_accepted_by_the_admin/is_accepted_by_the_admin.dart';
 import 'package:cc_dr_side/views/utils/costum_widgets/costum_alert.dart';
 
 class LoginContent extends StatelessWidget {
