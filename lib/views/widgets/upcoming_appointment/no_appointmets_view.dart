@@ -11,21 +11,21 @@ class NoAppointmentsView extends StatelessWidget {
         children: [
           const Icon(
             Icons.calendar_today_outlined,
-            size: 80,
+            size: 60, 
             color: Colors.grey,
           ),
           const SizedBox(height: 16),
           Text(
             'No Upcoming Appointments',
             style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
               color: Colors.grey[600],
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            'Check back later or add new appointments.',
+            'Check back later or wait for a new appointments.', 
             style: TextStyle(
               color: Colors.grey[500],
               fontSize: 14,

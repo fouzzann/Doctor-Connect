@@ -12,10 +12,10 @@ class NoCompletedAppointments extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
+         Icon(
             Icons.calendar_today_outlined,
-            size: 64,
-            color: Colors.grey[400],
+            size: 60, 
+            color: Colors.grey,
           ),
           const SizedBox(height: 16),
           Text(
@@ -29,9 +29,9 @@ class NoCompletedAppointments extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             'Your completed appointments will appear here',
-            style: TextStyle(
-              fontSize: 14,
+            style:TextStyle(
               color: Colors.grey[500],
+              fontSize: 14,
             ),
           ),
         ],
