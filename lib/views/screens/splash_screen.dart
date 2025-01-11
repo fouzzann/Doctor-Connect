@@ -45,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         curve: const Interval(0.4, 1.0, curve: Curves.easeIn),
       ),
     );
-
+ 
     _controller.forward();
 
     Future.delayed(const Duration(seconds: 4), () async {

@@ -23,9 +23,9 @@ class SplashLogo extends StatelessWidget {
               offset: const Offset(0, 10),
             ),
           ],
-        ),
+        ), 
         child: Image.asset(
-          'assets/app_logo-removebg-preview.png',
+          'assets/doctor_connect_app_logo.2png-removebg-preview.png',  
           fit: BoxFit.contain,
         ),
       ),
