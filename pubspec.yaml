@@ -55,16 +55,18 @@ dependencies:
   photo_view: ^0.15.0
   intl_phone_number_input: ^0.7.4
   url_launcher: ^6.3.1
+  flutter_launcher_icons: ^0.14.2
  
-
-
-
- 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/doctor_connect_app_logo.2png.png" 
+  adaptive_icon_background: "#ffffff"  
+  adaptive_icon_foreground: "assets/doctor_connect_app_logo.2png.png" 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
