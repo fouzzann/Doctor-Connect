@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Authentication {
+  String error = '';
   // Google Login
   Future<User?> loginWithGoogle() async {
     FirebaseAuth _auth = FirebaseAuth.instance;
@@ -26,6 +27,7 @@ class Authentication {
       return userCredential.user;
     } catch (e) {
       log("Error during Google Sign-In: $e");
+      error = e.toString();
       return null;
     }
   }

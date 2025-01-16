@@ -41,6 +41,10 @@ class _CreateDrAccountState extends State<CreateDrAccount> {
               message:
                   'You have already an account please try to login your existing account');
           await authentication.googleSignOut();
+        } else if (authentication.error.isNotEmpty) {
+          setState(() {
+            showErrorDialog(context, message: authentication.error);
+          });
         } else {
           final fullDoctorData = Doctor(
             contact: widget.doctor.contact,
